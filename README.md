@@ -1,6 +1,12 @@
 openbox-config: My config files to run an openbox environment
 ===============
 
+Overall preview
+---------------
+
+Take a look at the result in this screeshot file: `screenshot.jpg`.
+
+
 Installation
 ------------
 
