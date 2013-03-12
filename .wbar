@@ -1,0 +1,20 @@
+i: /usr/share/wbar/iconpack/wbar.osx/osxbarback.png
+c: wbar --bpress --above-desk --pos bottom --isize 60 --nanim 1 --zoomf 1,000000 --balfa 90 --falfa 75
+t: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans/12
+
+i: /usr/share/pixmaps/sonata.png
+c: sonata
+t: Sonata
+
+i: /usr/share/icons/hicolor/256x256/apps/deluge.png
+c: deluge-gtk
+t: Deluge
+
+i: /usr/share/icons/hicolor/256x256/apps/google-chrome.png
+c: google-chrome
+t: Chrome
+
+i: /usr/share/icons/gnome/256x256/apps/terminal.png
+c: rxvt-unicode -geometry 80x25 -rv -tr -vb -sr -bc -C -fn "xft:DejaVuSansMono:size=13" -sh 60
+t: Term
+

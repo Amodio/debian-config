@@ -1,0 +1,46 @@
+alignment bottom_left
+#background no
+background yes
+use_xft yes                          ## une police à chasse fixe est recommandée pour
+xftfont Terminus:pixelsize=30        ## ce genre de conky.
+xftalpha 0.8
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_colour 161616
+own_window_type desktop              ## type "override": conky 100% indépendant
+#own_window_transparent no
+own_window_transparent yes
+own_window_hints undecorated,below,sticky
+double_buffer yes
+minimum_size 1650 5                  ## largeur mini=maxi=taille de l'écran, conky
+maximum_width 1650
+draw_shades no
+draw_outline no
+draw_borders no
+border_inner_margin 0
+draw_graph_borders no
+default_color grey60                 ## couleur par défaut
+color1 FF3FFA # rouge                ##--|
+color2 FFC13A # orange               ##  |
+color3 68FF3A # vert                 ##  |--couleurs additionnelles
+color4 3AFFFD # bleu ciel            ##  |
+color5 443AFF # bleu marine          ##--|
+color6 FF0000
+color7 FF3FFA # rouge                ##--|
+color8 ED7F10 # orange               ##--|
+gap_x 100
+gap_y 0
+no_buffers yes
+uppercase no
+text_buffer_size 1024
+top_name_width 10                    ## limite la taille des noms des processus dans '$top'
+cpu_avg_samples 2
+short_units yes
+override_utf8_locale yes
+use_spacer none
+if_up_strictness address             ## attend d'obtenir une IP avant de déclarer le réseau ouvert
+
+TEXT
+${color1}DL ${downspeed eth0}/s${goto 200}${color2}CPU ${cpubar 8,50} $cpu% > ${top name 1}${goto 1050}${color3}${time %a %d %b}$alignr${color8}${font Terminus:pixelsize=20}${mpd_album}
+$font${color4}UP ${upspeed eth0}/s${goto 190}${color2}RAM ${membar 8,50} $memperc% > ${top_mem name 1} ${color6}${goto 1085}${time %H:%M}$alignr${color8}${font Terminus:pixelsize=20}${mpd_title}
