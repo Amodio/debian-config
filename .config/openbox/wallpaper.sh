@@ -12,6 +12,14 @@ current_file="$walldir/current"
 list_file="$walldir/list"
 current_line_list_file="$walldir/current_line"
 
+# Hack to bypass a bug in wbar
+reload_wbar()
+{
+    killall wbar
+    sleep 1
+    wbar -above-desk -isize 64 -zoomf 1 -nanim 1 -bpress -balfa 0 > /dev/null 2>&1 &
+}
+
 # Print the number of lines of a file
 get_n_lines()
 {
@@ -91,6 +99,7 @@ current=$(cat $current_file 2>/dev/null)
 if [ $? -ne 0 ] || [ $current -gt 0 -a ! -s "$walldir/$current.jpg" ]; then
     # Set the default wallpaper (when none has been downloaded yet)
     ret_val=$(feh --bg-scale "$walldir/sunset_in_tuscany-1920x1080.jpg")
+    reload_wbar
     # Initialize the wallpaper counter
     current=0
     echo $current > $current_file
@@ -129,6 +138,7 @@ echo $current > $current_file
 
 # Set the wallpaper
 ret_val=$(feh --bg-scale "$walldir/$current.jpg" 2> /dev/null)
+reload_wbar
 
 # The last wallpaper n° that is free to use
 free_file=1
