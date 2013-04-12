@@ -1,69 +1,154 @@
 #!/bin/bash
 
-# We download (and store) 14 wallpapers at once
-n=14
+# We download 4 wallpapers in a row
+n_preload=4
+
+# There are 14 wallpapers in a list
+n_list=14
 
 walldir="$HOME/.config/openbox/wallpapers"
-list_file="$walldir/list"
+random_wallpapers_file="$walldir/random_wallpapers.html"
 current_file="$walldir/current"
-current=$(cat $current_file 2>/dev/null)
-if [ $? -ne 0 ]; then
-    current=$(expr $n + 1)
-    # Set the default wallpaper (when none has been downloaded yet)
-    feh --bg-scale "$walldir/sunset_in_tuscany-1920x1080.jpg"
-else
-    ((current++))
-fi
+list_file="$walldir/list"
+current_line_list_file="$walldir/current_line"
 
-download_wallpapers()
+# Print the number of lines of a file
+get_n_lines()
 {
-    rm -f "$walldir/random_wallpapers.html"
-    wget -q "http://www.hdwallpapers.in/random_wallpapers.html" -O "$walldir/random_wallpapers.html"
-    if [ $? -ne 0 ] || [ ! -s "$walldir/random_wallpapers.html" ]; then
-        echo "Cannot fetch wallpapers" 2>/dev/stderr
-        # Stop the program here, do not cycle change the wallpaper
-        exit 1
+    local ret=0
+    if [ ! -s "$1" ]; then
+        local ret=1
+        echo 0
+    else
+        wc -l "$1" | cut -d ' ' -f1
     fi
-    rm -f "$list_file"
-    grep 'ul class="wallpapers"' "$walldir/random_wallpapers.html" | sed 's#<li class="wall" ><div class="thumbbg"><div class="thumb"><a href="/#\n#g' |grep -oe '[^"]*\.html'|sed 's/-wallpapers.html$//' > "$list_file"
-    list_lines=$(wc -l "$list_file" | awk '{print $1}')
-    if [ $? -ne 0 -o $list_lines -eq 0 ]; then
-        echo "Cannot fetch list of wallpapers" 2>/dev/stderr
-        exit 2
-    elif [ $list_lines -ne $n ]; then
-        echo "We fetched $list_lines != $n!" 2>/dev/stderr
-        n=$list_lines
-    fi
+    return $ret
+}
 
-    i=1
-    for da in $(cat "$list_file"); do
-        wget -q "http://www.hdwallpapers.in/download/$da-1920x1080.jpg" -O "$walldir/_$i.jpg"
-        if [ $? -eq 0 ] && [ -s "$walldir/_$i.jpg" ]; then
-            identify "$walldir/_$i.jpg" >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                mv -f "$walldir/_$i.jpg" "$walldir/$i.jpg"
-                ((i++))
-            fi
+# Wicked func' giving infinite links to HD wallpapers
+get_next_link()
+{
+    if [ ! -s "$list_file" ]; then
+        rm -f "$random_wallpapers_file"
+        wget -q "http://www.hdwallpapers.in/random_wallpapers.html" -O "$walldir/random_wallpapers.html"
+        if [ $? -ne 0 ] || [ ! -s "$random_wallpapers_file" ]; then
+            echo "Cannot fetch wallpapers" > /dev/stderr
+            # Stop the program here, do not cycle change the wallpaper
+            exit 1
         fi
-    done
-    for ((j=$i; $j <= $n; j++)); do
-        # Remove old wallpapers
-        rm -f "$walldir/$j.jpg"
-    done
-
-    if [ $i -eq 1 ]; then
-        # Wow, the 14 wallpapers were not available in this resolution
-        exit 3
+        rm -f "$list_file"
+        grep 'ul class="wallpapers"' "$random_wallpapers_file" | sed 's#<li class="wall" ><div class="thumbbg"><div class="thumb"><a href="/#\n#g' | grep -oe '[^"]*\.html' | sed 's/-wallpapers.html$//' > "$list_file"
+        local list_lines=$(get_n_lines "$list_file")
+        if [ $? -ne 0 ] || [ $list_lines -eq 0 ]; then
+            echo "Cannot fetch list of wallpapers" > /dev/stderr
+            # Stop the program here, do not cycle change the wallpaper
+            exit 2
+        elif [ $list_lines -ne $n_list ]; then
+            echo "We fetched $list_lines, expected $n_list." > /dev/stderr
+            # Stop the program here, do not cycle change the wallpaper
+            # That is harsh! Life is as radical.
+            exit 2
+        fi
+        # Reinit line counter in the list
+        echo 0 > "$current_line_list_file"
+    fi
+    # Fetch current_line_list
+    current_line_list=$(cat "$current_line_list_file" 2> /dev/null)
+    ((current_line_list++))
+    # Update current_line_list
+    echo $current_line_list > "$current_line_list_file"
+    local da=$(head -n "$current_line_list" "$list_file" | tail -1)
+    echo "http://www.hdwallpapers.in/download/$da-1920x1080.jpg"
+    # Delete the now done list
+    if [ $current_line_list -eq $(wc -l "$list_file" | awk '{print $1}') ]; then
+        rm -f "$list_file"
     fi
 }
 
-if [ $current -eq $(expr $n + 1) ] || [ ! -s "$walldir/$current.jpg" ]; then
-    download_wallpapers
+# Download wallpapers: $i.jpg from $1 to $1 + $n_preload
+download_wallpapers()
+{
+    local i=$1
+    local j=1
+    while [ $j -le $n_preload ]; do
+        local tmp_wallpaper_file="$walldir/_$i.jpg"
+        local wallpaper_file="$walldir/$i.jpg"
+        wget -q "$(get_next_link)" -O "$tmp_wallpaper_file"
+        if [ $? -eq 0 ] && [ -s "$tmp_wallpaper_file" ]; then
+            identify "$tmp_wallpaper_file" >/dev/null 2>&1
+            if [ $? -eq 0 ]; then
+                mv -f "$tmp_wallpaper_file" "$wallpaper_file"
+                local j=$(expr $j + 1)
+                local i=$(expr $i + 1)
+            fi
+            rm -f "$tmp_wallpaper_file"
+        fi
+    done
+}
+
+current=$(cat $current_file 2>/dev/null)
+# First call
+if [ $? -ne 0 ] || [ $current -gt 0 -a ! -s "$walldir/$current.jpg" ]; then
+    # Set the default wallpaper (when none has been downloaded yet)
+    ret_val=$(feh --bg-scale "$walldir/sunset_in_tuscany-1920x1080.jpg")
+    # Initialize the wallpaper counter
+    current=0
+    echo $current > $current_file
+    # Download wallpapers: $i.jpg from 1 to n_preload
+    download_wallpapers 1
+    exit $ret_val
+fi
+
+# Cycle when reaching the end
+if [ $current -ge $n_list ]; then
+    # Move wallpapers to the begining (starting from 1) and delete old ones
+    j=1
+    for ((i=$current; ; i++)); do
+        tmp_wallpaper_file="$walldir/$i.jpg"
+        wallpaper_file="$walldir/$j.jpg"
+        if [ ! -s "$tmp_wallpaper_file" ]; then
+            break
+        fi
+        mv -f "$tmp_wallpaper_file" "$wallpaper_file"
+        ((j++))
+    done
+    for ((; ; j++)); do
+        wallpaper_file="$walldir/$j.jpg"
+        if [ ! -s "$wallpaper_file" ]; then
+            break
+        fi
+        rm -f "$wallpaper_file"
+    done
     current=1
+else
+    ((current++))
 fi
 
 # Update the current wallpaper counter
 echo $current > $current_file
 
 # Set the wallpaper
-feh --bg-scale "$walldir/$current.jpg"
+ret_val=$(feh --bg-scale "$walldir/$current.jpg" 2> /dev/null)
+
+# The last wallpaper n° that is free to use
+free_file=1
+while true; do
+    if [ ! -s "$walldir/$free_file.jpg" ]; then
+        if [ $free_file -eq 1 ]; then
+            echo "No wallpaper found." > /dev/stderr
+            exit 1
+        fi
+        break
+    else
+        ((free_file++))
+    fi
+done
+
+n_wallpapers=$(/bin/ls $walldir/[0-9]*.jpg 2> /dev/null| wc -l)
+# If the number of wallpapers left is lower than n_preload, download some more
+if [ $(expr $n_wallpapers - $current) -le $n_preload ]; then
+    download_wallpapers $free_file
+    exit $ret_val
+fi
+
+exit $ret_val
