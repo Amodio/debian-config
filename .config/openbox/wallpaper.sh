@@ -17,7 +17,9 @@ reload_wbar()
 {
     killall wbar
     sleep 1
+    cd
     wbar -above-desk -isize 64 -zoomf 1 -nanim 1 -bpress -balfa 0 > /dev/null 2>&1 &
+    cd -
 }
 
 # Print the number of lines of a file
@@ -38,14 +40,14 @@ get_next_link()
 {
     if [ ! -s "$list_file" ]; then
         rm -f "$random_wallpapers_file"
-        wget -q "http://www.hdwallpapers.in/random_wallpapers.html" -O "$walldir/random_wallpapers.html"
+        wget -q "http://www.hdwallpapers.org/random-wallpapers.html" -O "$random_wallpapers_file"
         if [ $? -ne 0 ] || [ ! -s "$random_wallpapers_file" ]; then
             echo "Cannot fetch wallpapers" > /dev/stderr
             # Stop the program here, do not cycle change the wallpaper
             exit 1
         fi
         rm -f "$list_file"
-        grep 'ul class="wallpapers"' "$random_wallpapers_file" | sed 's#<li class="wall" ><div class="thumbbg"><div class="thumb"><a href="/#\n#g' | grep -oe '[^"]*\.html' | sed 's/-wallpapers.html$//' > "$list_file"
+        grep '<div class="thumb">' "$random_wallpapers_file" | sed 's#^<div class="thumb"><a href="##' | grep -oe '[^"]*\.html' | sed 's/-wallpapers.html$//' > "$list_file"
         local list_lines=$(get_n_lines "$list_file")
         if [ $? -ne 0 ] || [ $list_lines -eq 0 ]; then
             echo "Cannot fetch list of wallpapers" > /dev/stderr
@@ -66,7 +68,7 @@ get_next_link()
     # Update current_line_list
     echo $current_line_list > "$current_line_list_file"
     local da=$(head -n "$current_line_list" "$list_file" | tail -1)
-    echo "http://www.hdwallpapers.in/download/$da-1920x1080.jpg"
+    echo "http://www.hdwallpapers.org/download/$da-1920x1080.jpg"
     # Delete the now done list
     if [ $current_line_list -eq $(wc -l "$list_file" | awk '{print $1}') ]; then
         rm -f "$list_file"
@@ -101,8 +103,7 @@ if [ $? -ne 0 ] || [ $current -gt 0 -a ! -s "$walldir/$current.jpg" ]; then
     ret_val=$(feh --bg-scale "$walldir/sunset_in_tuscany-1920x1080.jpg")
     reload_wbar
     # Initialize the wallpaper counter
-    current=0
-    echo $current > $current_file
+    echo 0 > $current_file
     # Download wallpapers: $i.jpg from 1 to n_preload
     download_wallpapers 1
     exit $ret_val
@@ -112,7 +113,7 @@ fi
 if [ $current -ge $n_list ]; then
     # Move wallpapers to the begining (starting from 1) and delete old ones
     j=1
-    for ((i=$current; ; i++)); do
+    for ((i=$current + 1; ; i++)); do
         tmp_wallpaper_file="$walldir/$i.jpg"
         wallpaper_file="$walldir/$j.jpg"
         if [ ! -s "$tmp_wallpaper_file" ]; then
