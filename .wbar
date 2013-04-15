@@ -6,10 +6,6 @@ i: /usr/share/pixmaps/sonata.png
 c: sonata
 t: Sonata
 
-i: /usr/share/icons/hicolor/256x256/apps/deluge.png
-c: deluge-gtk
-t: Deluge
-
 i: /usr/share/icons/hicolor/256x256/apps/google-chrome.png
 c: google-chrome
 t: Chrome
