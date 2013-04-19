@@ -69,6 +69,9 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 aptitude -y install libgconf2-4 libxss1 xdg-utils
 dpkg -i google-chrome-stable_current_amd64.deb
 
+# Video reader
+aptitude -y install vlc
+
 # Install eog (image viewer)
 aptitude -y install eog
 
