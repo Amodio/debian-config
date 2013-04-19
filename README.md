@@ -4,7 +4,7 @@ debian-config: My config files to run a fresh debian (netinstall)
 Preview
 -------
 
-Take a look at the result in this screeshot file: `screenshot.jpg`.
+Take a look at the result in the screenshot file: `screenshot.jpg`.
 
 
 Installation
