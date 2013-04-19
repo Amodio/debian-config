@@ -1,5 +1,6 @@
-Fix bug with ViM: UltiSnips requires py >= 2.6 or any py3
+/!\ Install the configuration files from this repository to $HOME.
+/!\ Give a .bashrc config file
 
-Give a .bashrc config file
+Fix bug with ViM: UltiSnips requires py >= 2.6 or any py3
 
 Take a screen with a term and the command `df -h`.

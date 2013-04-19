@@ -26,3 +26,5 @@ unzip master.zip
 Finally, read the `INSTALL` file.
 
 Hope you'll like it; I enjoy feedbacks (bugs, etc) :-)
+
+THIS PROJECT IS CURRENTLY NOT DIRECTLY USABLE (see the `TODO` file).
