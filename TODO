@@ -1,0 +1,5 @@
+Fix bug with ViM: UltiSnips requires py >= 2.6 or any py3
+
+Give a .bashrc config file
+
+Take a screen with a term and the command `df -h`.

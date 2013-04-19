@@ -1,0 +1,19 @@
+################################################################################
+##### Jacques Boscq's installation script for a fresh debian (netinstall). #####
+################################################################################
+
+Here are five points you must read:
+
+This script must be run on an AMD64 architecture type computer.
+
+Your music directory must be '/home/musique' (or you can change it in mpd.conf,
+after 'music_directory').
+
+Your username must be 'da' (or you can change it in inittab, after 'autologin').
+
+You must edit the variable 'directories' in install.sh to fit your mountpoints.
+
+You may disable root login via ssh ('PermitRootLogin' in '/etc/ssh/sshd_config').
+
+That's it, that's all folks, you can now run 'install.sh'.
+Enjoy!

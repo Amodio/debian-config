@@ -1,0 +1,33 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+
+# / is on /dev/sda1; options are suited for a longer SSD's lifetime.
+UUID=a8f8efed-99ad-4f20-9c07-72e34301e2de /               ext4    defaults,noatime,nodiratime,errors=remount-ro 0       1
+
+# DVD-ROM
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+
+# USB keys
+/dev/sdc1       /media/usb0     auto    uid=1000,gid=1000,async,noauto,rw 0 0
+/dev/sdc2       /media/usb1     auto    uid=1000,gid=1000,async,noauto,rw 0 0
+# /home is on /dev/sdb1
+UUID="4b9febb7-e830-4b64-b0ed-e61bfa6fa370" /home ext4 defaults  0       2
+
+# /mnt/win is on /dev/sda3
+#UUID=101CA09E1CA08078 /mnt/win ntfs uid=1000,gid=1000,noauto,rw 0 0
+
+# /mnt/win2 is on /dev/sdb2
+UUID=4EC8219AC82180F7 /mnt/win2 ntfs uid=1000,gid=1000,noauto,rw 0 0
+
+# SD card in the printer
+//192.168.0.200/canon_memory /mnt/canon smbfs uid=1000,gid=1000,noauto,rw 0 0
+
+# Passphrase is 'dubadobstyle'
+/dev/mapper/groar /mnt/groar ext4 defaults,noauto 0 0
+
+#//192.168.1.71/C /mnt/papa smbfs uid=1000,gid=1000,noauto,rw 0 0
