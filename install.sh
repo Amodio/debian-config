@@ -59,7 +59,7 @@ cp -f etc/inittab /etc/inittab
 aptitude -y install mingetty
 
 # Propose a package to install whenever a command is not found
-aptitude -y install command-not-found && sudo update-command-not-found
+aptitude -y install command-not-found && update-command-not-found
 
 # Install Web browsers
 # This is firefox
@@ -75,6 +75,15 @@ aptitude -y install vlc
 # Install eog (image viewer)
 aptitude -y install eog
 
+# News reader
+aptitude -y install slrn
+
+# IRC client
+aptitude -y install irssi
+
+# PDF reader
+aptitude -y install evince
+
 # Optional stuff from here
 
 # Crypted USB key (alias crypt)
@@ -83,12 +92,6 @@ cp -f etc/crypttab /etc/crypttab
 
 # Galaxy Nexus (alias nexus)
 aptitude -y install mtp-tools
-
-# News reader
-aptitude -y install slrn
-
-# IRC client
-aptitude -y install irssi
 
 echo "Will now logout to let you enjoy openbox on debian."
 echo "Peace."
