@@ -84,6 +84,12 @@ cp -f etc/crypttab /etc/crypttab
 # Galaxy Nexus (alias nexus)
 aptitude -y install mtp-tools
 
+# News reader
+aptitude -y install slrn
+
+# IRC client
+aptitude -y install irssi
+
 echo "Will now logout to let you enjoy openbox on debian."
 echo "Peace."
 echo "--- PRESS ENTER WHEN READY ---"
