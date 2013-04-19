@@ -15,6 +15,6 @@ Copy files from this repository to your $HOME by running:
 wget https://github.com/Amodio/debian-config/archive/master.zip
 unzip master.zip
 ```
-Then read the 'INSTALL' file.
+Then read the `INSTALL` file.
 
 Hope you'll like it; I enjoy feedbacks (bugs, etc).
