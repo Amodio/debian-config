@@ -4,6 +4,7 @@ debian-config: My config files to run a fresh debian (netinstall)
 Preview
 -------
 
+The system will take ~ 2,7 GB on your SSD; reserve at least 6 to 10 GB.
 Take a look at the result in the screenshot file: `screenshot.jpg`.
 
 
@@ -24,8 +25,8 @@ aptitude install unzip
 unzip master.zip
 ```
 Finally, read the `INSTALL` file.
+As it is too long to load music into MPD, user has to run `mpc update`.
 
 Hope you'll like it; I enjoy feedbacks (bugs, etc) :-)
 
-THIS PROJECT IS CURRENTLY NOT DIRECTLY USABLE (see the `TODO` file).
-Load music into MPD. => as it is too long to run, user has to run it.
+THIS PROJECT IS CURRENTLY NOT USABLE (see the `TODO` file).
