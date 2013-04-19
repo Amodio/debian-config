@@ -5,8 +5,6 @@ Fix bug with ViM: 'UltiSnips requires py >= 2.6 or any py3'
 
 Take a screen with a term and the command `df -h`.
 
-Load music into MPD.
-
 Configure the MTA daemon (to send real mails).
 
 Improve install.sh to get rid of INSTALL.

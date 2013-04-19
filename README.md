@@ -28,3 +28,4 @@ Finally, read the `INSTALL` file.
 Hope you'll like it; I enjoy feedbacks (bugs, etc) :-)
 
 THIS PROJECT IS CURRENTLY NOT DIRECTLY USABLE (see the `TODO` file).
+Load music into MPD. => as it is too long to run, user has to run it.

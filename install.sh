@@ -64,7 +64,7 @@ cp -f etc/inittab /etc/inittab
 aptitude -y install mingetty
 
 # Propose a package to install whenever a command is not found
-aptitude -y install command-not-found && update-command-not-found
+aptitude -y install command-not-found && echo "Do not worry about that dude, i am already executing it" && update-command-not-found
 
 # Install Web browsers
 # This is firefox
@@ -113,6 +113,7 @@ if [ $use_optional -eq 1 ]; then
 fi
 
 echo "Will now reboot to let you enjoy openbox on debian."
+echo "Please run `mpc update` after the reboot for your music to be loaded."
 echo "Peace."
 echo "--- PRESS ENTER WHEN READY ---"
 read
