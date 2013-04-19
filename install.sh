@@ -84,6 +84,9 @@ aptitude -y install irssi
 # PDF reader
 aptitude -y install evince
 
+# smartctl (for HDD health check)
+aptitude -y install smartmontools
+
 # Optional stuff from here
 
 # Crypted USB key (alias crypt)
@@ -92,6 +95,9 @@ cp -f etc/crypttab /etc/crypttab
 
 # Galaxy Nexus (alias nexus)
 aptitude -y install mtp-tools
+
+# Realtek 8169 (Ethernet card)
+aptitude -y install firmware-realtek
 
 echo "Will now logout to let you enjoy openbox on debian."
 echo "Peace."
