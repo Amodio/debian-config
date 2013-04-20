@@ -1,14 +1,9 @@
-/!\ Install the configuration files from this repository to $HOME.
-/!\ Provide a .bashrc config file
-
 Fix bug with ViM: 'UltiSnips requires py >= 2.6 or any py3'
 
 Take a screen with a term and the command `df -h`.
 
 Configure the MTA daemon (to send real mails).
 
-Improve install.sh to get rid of INSTALL.
-
 Decrease time spent in grub.
 
-Link config files from $HOME to /root
+Add ViM config?
