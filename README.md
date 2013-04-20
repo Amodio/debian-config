@@ -44,7 +44,7 @@ Net-install Debian (without the graphical environment). Then fetch install files
 aptitude install unzip
 wget https://github.com/Amodio/debian-config/archive/master.zip
 unzip master.zip
-cd debian-config
+cd debian-config-master
 ./install.sh
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
