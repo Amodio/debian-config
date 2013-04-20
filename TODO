@@ -1,9 +1,9 @@
 Fix bug with ViM: 'UltiSnips requires py >= 2.6 or any py3'
 
+Decrease time spent in grub.
+
 Take a screen with a term and the command `df -h`.
 
-Configure the MTA daemon (to send real mails).
-
-Decrease time spent in grub.
+Configure the MTA daemon (to send real mails)?
 
 Add ViM config?

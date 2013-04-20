@@ -89,7 +89,7 @@ echo '--- PRESS ENTER WHEN READY ---'
 read
 vi /etc/fstab
 
-echo -n 'Remount /home ? [Y/n]'
+echo -n 'Remount /home ? [Y/n] '
 response=$(get_word Y)
 if [ "$response" != "n" ]; then
     # Useless.. unless you want to gain a little disk space..
@@ -105,7 +105,7 @@ aptitude -y install obmenu obconf thunar
 aptitude -y install numlockx volumicon-alsa xcalib xscreensaver tint2 wbar
 
 cp -f .bashrc '/root/.bashrc'
-echo -n "Copy default config. files to your $HOME? (allow overwrite) [Y/n] "
+echo -n "Copy default config. files to your \$HOME? (allow overwrite) [Y/n] "
 response=$(get_word Y)
 if [ "$response" != "n" ]; then
     cp -f .bashrc "/home/$username/.bashrc"
