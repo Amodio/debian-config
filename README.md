@@ -4,12 +4,20 @@ debian-config: My config files to run a fresh debian (netinstall)
 Purpose
 -------
 
-I aim at providing a script to run on fresh debian net install (without the
+I aim at providing a script to run on a fresh debian netinstall (without the
 graphical environment, etc) in order to let you enjoy a lightweight linux
 environment.
 
-Provides
---------
+
+Hidden purpose
+--------------
+
+There is no dark side like a mass-backdooring idea, there are more efficient
+ways for that ;p
+
+
+Provide
+-------
 
 Openbox (wallpapers randomly fetched from internet), MPD (music daemon), sudoers
 configured (password no more required using sudo); see `install.sh` for more.
@@ -33,11 +41,13 @@ dd if=mini.iso of=/dev/sdX # X Where X represents your key device
 
 Net-install Debian (without the graphical environment). Fetch install files:
 ```
-wget https://github.com/Amodio/debian-config/archive/master.zip
 aptitude install unzip
+wget https://github.com/Amodio/debian-config/archive/master.zip
 unzip master.zip
+cd debian-config
+./install.sh
 ```
-Set your username, etc. in `install.sh` and run it.
-As it is too long to load music into MPD, user will have to run `mpc update`.
+As it is too long to load music into MPD, user will have to run `mpc update`
+after the reboot.
 
 Hope you'll like it; I enjoy feedbacks (bugs, program to add, etc) :-)
