@@ -36,7 +36,7 @@ Installation
 Prepare an USB key to erase (you will have to boot on it):
 ```
 wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/mini.iso
-dd if=mini.iso of=/dev/sdX # X Where X represents your key device
+dd if=mini.iso of=/dev/sdX # Where X represents your key device
 ```
 
 Net-install Debian (without the graphical environment, etc), then fetch my install files:
