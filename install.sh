@@ -98,6 +98,9 @@ rm -f google-chrome-stable_current_amd64.deb
 # Video players
 aptitude -y install mplayer vlc
 
+# FTP client
+aptitude -y install lftp
+
 # Install eog (image viewer)
 aptitude -y install eog
 
