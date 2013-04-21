@@ -36,6 +36,14 @@ if [ "$response" != "$username" ]; then
     echo 'Setting the username to "'$username'".'
 fi
 
+# Extra hosts
+echo -n 'Do you want to add extra hosts? [Y/n] '
+response=$(get_word Y)
+if [ "$response" == 'y' ]; then
+    cat etc/hosts >> /etc/hosts
+    echo 'Adding hosts.'
+fi
+
 # Directory containing your music files
 mpd_zik_dir='/home/musique'
 echo -n 'What is your music directory ['$mpd_zik_dir']? '
