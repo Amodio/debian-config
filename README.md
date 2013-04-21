@@ -53,8 +53,8 @@ after the reboot.
 Hope you'll like it; I enjoy feedbacks (bugs, program to add, etc) :-)
 
 
-Exhaustive list of installed package
-------------------------------------
+Exhaustive list of installed packages
+-------------------------------------
 
 ### System
 * sudo
