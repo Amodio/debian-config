@@ -108,7 +108,6 @@ cp -f .bashrc '/root/.bashrc'
 echo -n "Copy default config. files to your \$HOME? (allow overwrite) [Y/n] "
 response=$(get_word Y)
 if [ "$response" != "n" ]; then
-    cp -f .bashrc "/home/$username/.bashrc"
     cp -f .wbar "/home/$username/.wbar"
     cp -f .xinitrc "/home/$username/.xinitrc"
     cp -f .xscreensaver "/home/$username/.xscreensaver"
@@ -116,6 +115,15 @@ if [ "$response" != "n" ]; then
     cp -f .conkyrc "/home/$username/.conkyrc"
     mkdir -p "/home/$username/.config"
     cp -rf etc/.config/{autostart,openbox,volumeicon} "/home/$username/.config/"
+    if [ !-f "/home/$username/.bashrc" ]; then
+        echo -n 'Do you really want to erase your .bashrc ? [y/N] '
+        response=$(get_word n)
+        if [ "$response" != "n" ]; then
+            cp -f .bashrc "/home/$username/.bashrc"
+        fi
+    else
+        cp -f .bashrc "/home/$username/.bashrc"
+    fi
 fi
 
 # Install the terminal
@@ -164,6 +172,9 @@ aptitude -y install evince
 
 # Git
 aptitude -y install gitk
+
+# Sniffer
+aptitude -y install wireshark
 
 # Sound
 aptitude -y install alsa-utils
