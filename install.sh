@@ -13,8 +13,9 @@ function get_word()
 {
     read read_tmp
     if [ -z "$read_tmp" ]; then
-        echo "$1"
-    elif [ "$read_tmp" == "N" ]; then
+        read_tmp="$1"
+    fi
+    if [ "$read_tmp" == "N" ]; then
         echo 'n'
     elif [ "$read_tmp" == "Y" ]; then
         echo 'y'
