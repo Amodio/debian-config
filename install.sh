@@ -16,6 +16,8 @@ function get_word()
         echo "$1"
     elif [ "$read_tmp" == "N" ]; then
         echo 'n'
+    elif [ "$read_tmp" == "Y" ]; then
+        echo 'y'
     else
         echo "$read_tmp"
     fi
@@ -51,7 +53,7 @@ fi
 install_nvidia=1
 echo -n 'Should we install NVIDIA drivers ? [Y/n] '
 response=$(get_word Y)
-if [ "$response" != 'Y' ]; then
+if [ "$response" != 'y' ]; then
     echo 'Will not install NVIDIA drivers.'
     install_nvidia=0
 fi
@@ -60,7 +62,7 @@ fi
 use_optional=1
 echo -n 'Should we install optional stuff? [Y/n] '
 response=$(get_word Y)
-if [ "$response" != 'Y' ]; then
+if [ "$response" != 'y' ]; then
     echo 'Will not install optional stuff.'
     use_optional=0
 fi
@@ -89,9 +91,9 @@ echo '--- PRESS ENTER WHEN READY ---'
 read
 vi /etc/fstab
 
-echo -n 'Remount /home (ignore me if you have not a dedicated partition)? [Y/n] '
+echo -n 'Remount /home (ignore if you have not a dedicated partition)? [Y/n] '
 response=$(get_word Y)
-if [ "$response" != "n" ]; then
+if [ "$response" == 'y' ]; then
     # Useless.. unless you want to gain a little disk space..
     rm -rf /home; mkdir /home
     mount /home
@@ -107,7 +109,7 @@ aptitude -y install numlockx volumicon-alsa xcalib xscreensaver tint2 wbar
 cp -f .bashrc '/root/.bashrc'
 echo -n "Copy default config. files to your \$HOME? (allow overwrite) [Y/n] "
 response=$(get_word Y)
-if [ "$response" != "n" ]; then
+if [ "$response" == 'y' ]; then
     cp -f .wbar "/home/$username/.wbar"
     cp -f .xinitrc "/home/$username/.xinitrc"
     cp -f .xscreensaver "/home/$username/.xscreensaver"
@@ -118,7 +120,7 @@ if [ "$response" != "n" ]; then
     if [ !-f "/home/$username/.bashrc" ]; then
         echo -n 'Do you really want to erase your .bashrc ? [y/N] '
         response=$(get_word n)
-        if [ "$response" != "n" ]; then
+        if [ "$response" != 'n' ]; then
             cp -f .bashrc "/home/$username/.bashrc"
         fi
     else
