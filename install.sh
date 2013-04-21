@@ -133,6 +133,7 @@ fi
 aptitude -y install rxvt-unicode
 
 # Install musical part
+aptitude -y install alsa-utils
 aptitude -y install sonata mpd mpc
 sed 's#^music_directory.*$#music_directory "'$mpd_zik_dir'"#' etc/mpd.conf > /etc/mpd.conf
 
@@ -178,9 +179,6 @@ aptitude -y install gitk
 
 # Sniffer
 aptitude -y install wireshark
-
-# Sound
-aptitude -y install alsa-utils
 
 # smartctl (for HDD health check)
 aptitude -y install smartmontools

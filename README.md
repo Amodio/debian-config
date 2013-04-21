@@ -51,3 +51,52 @@ As it is too long to load music into MPD, user will have to run `mpc update`
 after the reboot.
 
 Hope you'll like it; I enjoy feedbacks (bugs, program to add, etc) :-)
+
+
+Exhaustive list of installed package
+------------------------------------
+
+System
+    * sudo
+    * mingetty # For autologin
+    * screen   # To attach/detach from screens (can be shared)
+    * command-not-found # Tell which pkg to install
+    * smartmontools     # smartctl (for HDD health check)
+    * X server
+        * xserver-xorg xinit
+        * openbox python-xdg conky-std
+        * feh graphicsmagick-imagemagick-compat
+        * obmenu obconf thunar
+        * numlockx volumicon-alsa xcalib xscreensaver tint2 wbar
+    * Sound
+        * alsa-utils
+        * sonata mpd mpc
+    * NVIDIA Drivers # IF install_nvidia=1
+        * nvidia-glx nvidia-xconfig
+    * MTP tools # IF use_optional=1, for the Galaxy Nexus on USB
+        * mtp-tools
+    * Realtek (Ethernet card) firmware # IF use_optional=1
+        * firmware-realtek
+Applications
+    * Text editor
+        * vim + vim-syntax-go
+    * Terminal
+        * rxvt-unicode¬
+    * Web browsers
+        * iceweasel # Firefox
+        * Google Chrome 64 bits
+    * Video players
+        * vlc
+        * mplayer
+    * FTP Client
+        * lftp
+    * Image Viewer
+        * eog
+    * News reader
+        * slrn
+    * IRC client
+        * irssi
+    * Sniffer
+        * wireshark
+    * Development
+        * git gitk # Graphical UI for git
