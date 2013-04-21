@@ -239,6 +239,9 @@ aptitude -y install evince
 # Git
 aptitude -y install gitk
 
+# bzip2
+aptitude -y install bzip2
+
 # Sniffer
 aptitude -y install wireshark
 

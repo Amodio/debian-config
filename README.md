@@ -109,3 +109,5 @@ Exhaustive list of installed packages
 * Archives
     * unzip
     * unrar-free
+* Compression
+    * bzip2
