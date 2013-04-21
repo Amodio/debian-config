@@ -50,8 +50,8 @@ fi
 
 install_nvidia=1
 echo -n 'Should we install NVIDIA drivers ? [Y/n] '
-response=$(get_word $install_nvidia)
-if [ "$response" != "$install_nvidia" -a $response == "0" ]; then
+response=$(get_word Y)
+if [ "$response" != 'Y' ]; then
     echo 'Will not install NVIDIA drivers.'
     install_nvidia=0
 fi
@@ -59,8 +59,8 @@ fi
 # You should know what you are doing!
 use_optional=1
 echo -n 'Should we install optional stuff? [Y/n] '
-response=$(get_word $use_optional)
-if [ "$response" != "$use_optional" -a $response == "0" ]; then
+response=$(get_word Y)
+if [ "$response" != 'Y' ]; then
     echo 'Will not install optional stuff.'
     use_optional=0
 fi
