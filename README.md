@@ -39,10 +39,11 @@ wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/ima
 dd if=mini.iso of=/dev/sdX # Where X represents your key device
 ```
 
-Net-install Debian (without the graphical environment, etc), then fetch my install files:
+Net-install Debian (without the graphical environment, etc), reboot and login as
+root, then fetch my install files:
 ```
 aptitude install unzip
-wget https://github.com/Amodio/debian-config/archive/master.zip
+wget --no-check-certificate https://github.com/Amodio/debian-config/archive/master.zip
 unzip master.zip
 cd debian-config-master
 vi etc/hosts # OPTIONAL: Configure the extra hosts you would like to add
@@ -82,8 +83,10 @@ Exhaustive list of installed packages
 ### Applications
 * Text editor
     * vim + vim-syntax-go
+    * less
 * Terminal
     * rxvt-unicode
+    * Bash completion
 * Web browsers
     * iceweasel # Firefox
     * Google Chrome 64 bits
@@ -102,3 +105,6 @@ Exhaustive list of installed packages
     * wireshark
 * Development
     * git gitk # Graphical UI for git
+* Archives
+    * unzip
+    * unrar-free

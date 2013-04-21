@@ -53,70 +53,68 @@ if [ "$response" != "$mpd_zik_dir" ]; then
     echo 'Setting the music dir to "'$mpd_zik_dir'".'
 fi
 
-# Directories to be created in /mnt/
-mountpoints='canon groar nexus win win2'
-echo -n 'What are your mountpoints? ['$mountpoints']? '
-response=$(get_word $mountpoints)
-if [ "$response" != "$mountpoints" ]; then
-    mountpoints=$response
-    echo 'Setting the mountpoints to "'$mountpoints'".'
-fi
-
 install_nvidia=1
 echo -n 'Should we install NVIDIA drivers ? [Y/n] '
 response=$(get_word Y)
-if [ "$response" != 'y' ]; then
-    echo 'Will not install NVIDIA drivers.'
+echo -n 'Will '
+if [ "$response" == 'n' ]; then
+    echo -n 'not '
     install_nvidia=0
 fi
+echo 'install NVIDIA drivers.'
 
 # You should know what you are doing!
 use_optional=1
 echo -n 'Should we install optional stuff? [Y/n] '
 response=$(get_word Y)
-if [ "$response" != 'y' ]; then
-    echo 'Will not install optional stuff.'
+echo -n 'Will '
+if [ "$response" == 'n' ]; then
+    echo -n 'not '
     use_optional=0
 fi
-
-cp -f etc/fstab /etc/fstab
-for directory in $mountpoints; do
-    echo "Creating /mnt/$directory directory."
-    mkdir "/mnt/$directory"
-    echo "/mnt/$directory" >> /etc/fstab
-done
-
-echo '# Set /home and / (below) + /mnt/ mountpoints (above)' >> /etc/fstab
-blkid | sed 's/^/# /gi' >> /etc/fstab
-
-# Sudo
-aptitude -y install sudo
-# The password is no more required
-echo "$username	ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo 'install optional stuff.'
 
 # Install ViM
 aptitude -y install vim vim-syntax-go
 
-echo 'Will now edit /etc/fstab. You have to set /home + /mnt/* (ur mountpoints)'
-echo 'You have just one try; when exiting from ViM, it will be too late! :p'
-echo '--- PRESS ENTER WHEN READY ---'
-read
-vi /etc/fstab
-
-echo -n 'Remount /home (ignore if you have not a dedicated partition)? [Y/n] '
+echo -n 'Edit fstab (if you need to mount your /home) [NOTE: U gonna edit fstab with ViM]? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
-    # Useless.. unless you want to gain a little disk space..
-    rm -rf /home; mkdir /home
-    mount /home
-fi
+    # Directories to be created in /mnt/
+    mountpoints='canon groar nexus win win2'
+    echo -n 'Create mountpoint directories in /mnt ? [Y/n] '
+    response=$(get_word Y)
+    if [ "$response" == 'y' ]; then
+        echo "Will create mountpoints: \"$mountpoints\" in /mnt."
+    else
+        mountpoints=""
+        echo 'Will not create any mountpoints in /mnt.'
+    fi
 
-# Install graphical part
-aptitude -y install xserver-xorg xinit
-aptitude -y install openbox python-xdg conky-std
-aptitude -y install feh graphicsmagick-imagemagick-compat
-aptitude -y install obmenu obconf thunar
-aptitude -y install numlockx volumicon-alsa xcalib xscreensaver tint2 wbar
+    cp -f etc/fstab /etc/fstab
+    for directory in $mountpoints; do
+        echo "Creating /mnt/$directory directory."
+        mkdir -p "/mnt/$directory"
+        echo "# /mnt/$directory" >> /etc/fstab
+    done
+
+    echo '# Set /home and / (below) + /mnt/ mountpoints (above)' >> /etc/fstab
+    blkid | sed 's/^/# /gi' >> /etc/fstab
+
+    echo 'Will now edit /etc/fstab. You have to set /home + /mnt/* (ur mountpoints)'
+    echo 'You have just one try; when exiting from ViM, it will be too late! :p'
+    echo '--- PRESS ENTER WHEN READY ---'
+    read
+    vi /etc/fstab
+
+    echo -n 'Mount /home? [Y/n] '
+    response=$(get_word Y)
+    if [ "$response" == 'y' ]; then
+        # Useless.. unless you want to gain a little disk space..
+        # rm -rf /home; mkdir /home
+        mount /home
+    fi
+fi
 
 cp -f .bashrc '/root/.bashrc'
 echo -n "Copy default config. files to your \$HOME? (allow overwrite) [Y/n] "
@@ -128,11 +126,11 @@ if [ "$response" == 'y' ]; then
     cp -f .xsession "/home/$username/.xsession"
     cp -f .conkyrc "/home/$username/.conkyrc"
     mkdir -p "/home/$username/.config"
-    cp -rf etc/.config/{autostart,openbox,volumeicon} "/home/$username/.config/"
-    if [ !-f "/home/$username/.bashrc" ]; then
+    cp -rf .config/{autostart,openbox,volumeicon} "/home/$username/.config/"
+    if [ ! -f "/home/$username/.bashrc" ]; then
         echo -n 'Do you really want to erase your .bashrc ? [y/N] '
         response=$(get_word n)
-        if [ "$response" != 'n' ]; then
+        if [ "$response" == 'y' ]; then
             cp -f .bashrc "/home/$username/.bashrc"
         fi
     else
@@ -148,12 +146,41 @@ if [ "$response" == 'y' ]; then
     mv -f /etc/default/grub2 /etc/default/grub
     update-grub
 fi
+
+echo 'Now installing all the packages.. this may take a while (10-15 minutes).'
+
+# Replace /etc/apt/sources.list & update
+cp -f etc/apt/sources.list /etc/apt/sources.list
+aptitude update
+
+# Sudo
+aptitude -y install sudo
+# The password is no more required
+echo "$username	ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Less
+aptitude -y install less
+
+# Unrar & unzip
+aptitude -y install unrar-nonfree unzip
+
+# Bash completion
+aptitude -y install bash-completion
+
+# Install graphical part
+aptitude -y install xserver-xorg xinit
+aptitude -y install openbox python-xdg conky-std
+aptitude -y install feh graphicsmagick-imagemagick-compat
+aptitude -y install obmenu obconf thunar
+aptitude -y install numlockx volumeicon-alsa xcalib xscreensaver tint2 wbar
+
 # Install the terminal
 aptitude -y install rxvt-unicode
 
 # Install musical part
 aptitude -y install alsa-utils
 aptitude -y install sonata mpd mpc
+echo 'Do not worry about MPD complaining. music_directory is not set yet.'
 sed 's#^music_directory.*$#music_directory "'$mpd_zik_dir'"#' etc/mpd.conf > /etc/mpd.conf
 
 # Autologin
@@ -226,9 +253,9 @@ DIFF_min=$(expr $DIFF_TIME \/ 60)
 DIFF_sec=$(expr $DIFF_TIME % 60)
 echo -n 'Installation successfully completed in '
 if [ $DIFF_min -gt 0 ]; then
-    printf "%dm%02ds\n" $DIFF_min $DIFF_sec
+    printf "%dm%02ds.\n" $DIFF_min $DIFF_sec
 else
-    printf "%02ds\n" $DIFF_sec
+    printf "%02ds.\n" $DIFF_sec
 fi
 echo 'Will now reboot to let you enjoy Openbox on Debian.'
 echo 'Please run `mpc update` after the reboot for your music to be loaded.'
