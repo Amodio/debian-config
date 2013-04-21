@@ -207,6 +207,6 @@ fi
 echo 'Will now reboot to let you enjoy Openbox on Debian.'
 echo 'Please run `mpc update` after the reboot for your music to be loaded.'
 echo 'Peace.'
-echo '--- PRESS ENTER WHEN READY ---'
+echo '--- PRESS ENTER TO REBOOT ---'
 read
 reboot
