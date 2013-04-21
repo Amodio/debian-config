@@ -141,7 +141,7 @@ aptitude -y install mingetty
 sed 's/--autologin \w*/--autologin '$username'/' etc/inittab > /etc/inittab
 
 # Propose a package to install whenever a command is not found
-aptitude -y install command-not-found && echo 'Do not worry about that dude, I and I take care of it' && update-command-not-found
+aptitude -y install command-not-found && echo 'Do not worry about that dude, I and I handle this.' && update-command-not-found
 
 # Install Web browsers
 # This is firefox
