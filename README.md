@@ -47,7 +47,6 @@ aptitude install unzip
 wget --no-check-certificate https://github.com/Amodio/debian-config/archive/master.zip
 unzip master.zip
 cd debian-config-master
-vi etc/hosts # OPTIONAL: Configure the extra hosts you would like to add
 ./install.sh
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
@@ -111,3 +110,4 @@ Exhaustive list of installed packages
     * unrar-free
 * Compression
     * bzip2
+    * sharutils # For base64 decoding (uudecode)

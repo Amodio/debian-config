@@ -42,6 +42,11 @@ response=$(get_word Y)
 if [ "$response" == 'y' ]; then
     cat etc/hosts >> /etc/hosts
     echo 'Adding hosts.'
+    echo -n 'Do you want to edit [with ViM] /etc/hosts? [y/N] '
+    response=$(get_word N)
+    if [ "$response" == 'y' ]; then
+        vi etc/hosts
+    fi
 fi
 
 # Directory containing your music files
@@ -77,7 +82,10 @@ echo 'install optional stuff.'
 # Install ViM
 aptitude -y install vim vim-syntax-go
 
-echo -n 'Edit fstab (if you need to mount your /home) [NOTE: U gonna edit fstab with ViM]? [Y/n] '
+# uudecode (Base64)
+aptitude -y install sharutils
+
+echo -n 'Edit fstab [with ViM] (if you need to mount your /home)? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
     # Directories to be created in /mnt/
