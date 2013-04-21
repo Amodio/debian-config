@@ -77,11 +77,12 @@ Exhaustive list of installed package
     * mtp-tools
 * Realtek (Ethernet card) firmware # IF use_optional=1
     * firmware-realtek
+
 ### Applications
 * Text editor
     * vim + vim-syntax-go
 * Terminal
-    * rxvt-unicode¬
+    * rxvt-unicode
 * Web browsers
     * iceweasel # Firefox
     * Google Chrome 64 bits
