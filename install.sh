@@ -140,6 +140,14 @@ if [ "$response" == 'y' ]; then
     fi
 fi
 
+# GRUB
+echo -n 'Set GRUB timeout to 1 and save last boot choice [Y/n] '
+response=$(get_word Y)
+if [ "$response" == 'y' ]; then
+    sed 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/' /etc/default/grub | sed 's/GRUB_DEFAULT=0/GRUB_DEFAULT=saved\nGRUB_SAVEDEFAULT=true/' > /etc/default/grub2
+    mv -f /etc/default/grub2 /etc/default/grub
+    update-grub
+fi
 # Install the terminal
 aptitude -y install rxvt-unicode
 
