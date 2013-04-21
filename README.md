@@ -39,8 +39,7 @@ wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/ima
 dd if=mini.iso of=/dev/sdX # Where X represents your key device
 ```
 
-Net-install Debian (without the graphical environment, etc), reboot and login as
-root, then fetch my install files:
+Net-install Debian (without anything); login as root then fetch my install files:
 ```
 aptitude install unzip
 wget --no-check-certificate https://github.com/Amodio/debian-config/archive/master.zip
@@ -62,6 +61,7 @@ Exhaustive list of installed packages
 * sudo
 * mingetty # For autologin
 * screen   # To attach/detach from screens (can be shared)
+* bash-completion
 * command-not-found # Tell which pkg to install
 * smartmontools     # smartctl (for HDD health check)
 * X server
@@ -86,7 +86,6 @@ Exhaustive list of installed packages
     * less
 * Terminal
     * rxvt-unicode
-    * Bash completion
 * Web browsers
     * iceweasel # Firefox
     * Google Chrome 64 bits

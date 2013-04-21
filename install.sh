@@ -148,10 +148,26 @@ if [ "$response" == 'y' ]; then
 fi
 
 echo 'Now installing all the packages.. this may take a while (10-15 minutes).'
+echo '--- PRESS ENTER WHEN READY ---'
+read
 
 # Replace /etc/apt/sources.list & update
 cp -f etc/apt/sources.list /etc/apt/sources.list
 aptitude update
+
+if [ $use_optional -eq 1 ]; then
+    # Optional stuff from here
+
+    # Crypted USB key (alias crypt)
+    aptitude -y install cryptsetup
+    cp -f etc/crypttab /etc/crypttab
+
+    # Galaxy Nexus (alias nexus)
+    aptitude -y install mtp-tools
+
+    # Realtek 8169 (Ethernet card)
+    aptitude -y install firmware-realtek
+fi
 
 # Sudo
 aptitude -y install sudo
@@ -232,20 +248,6 @@ aptitude -y install smartmontools
 if [ $install_nvidia -eq 1 ]; then
     # NVIDIA proprietary drivers
     aptitude -y install nvidia-glx nvidia-xconfig
-fi
-
-if [ $use_optional -eq 1 ]; then
-    # Optional stuff from here
-
-    # Crypted USB key (alias crypt)
-    aptitude -y install cryptsetup
-    cp -f etc/crypttab /etc/crypttab
-
-    # Galaxy Nexus (alias nexus)
-    aptitude -y install mtp-tools
-
-    # Realtek 8169 (Ethernet card)
-    aptitude -y install firmware-realtek
 fi
 
 DIFF_TIME=$(expr $(date +%s) - $START_TIME)
