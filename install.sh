@@ -5,6 +5,9 @@ if [ "$USER" != 'root' ]; then
     exit 1
 fi
 
+START_TIME=$(date +%s)
+
+clear
 echo "Let's start, hope you gonna be a Yes man ;)"
 echo
 
@@ -202,6 +205,15 @@ if [ $use_optional -eq 1 ]; then
     aptitude -y install firmware-realtek
 fi
 
+DIFF_TIME=$(expr $(date +%s) - $START_TIME)
+DIFF_min=$(expr $DIFF_TIME \/ 60)
+DIFF_sec=$(expr $DIFF_TIME % 60)
+echo -n 'Installation successfully completed in '
+if [ $DIFF_min -gt 0 ]; then
+    printf "%dm%02ds\n" $DIFF_min $DIFF_sec
+else
+    printf "%02ds\n" $DIFF_sec
+fi
 echo 'Will now reboot to let you enjoy Openbox on Debian.'
 echo 'Please run `mpc update` after the reboot for your music to be loaded.'
 echo 'Peace.'
