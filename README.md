@@ -27,6 +27,7 @@ Preview
 -------
 
 The system will take approximately 3 GB on your SSD; reserve 6 to 10 GB.
+The installation process is estimated to (10m + 15m =) 25 minutes long.
 Take a look at the result in the [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 
@@ -39,7 +40,8 @@ wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/ima
 dd if=mini.iso of=/dev/sdX # Where X represents your key device
 ```
 
-Net-install Debian (without anything); login as root then fetch my install files:
+Net-install Debian (without anything); this may take 10 minutes.
+Login as root then fetch and install my config files (this may take 15 minutes):
 ```
 aptitude install unzip
 wget --no-check-certificate https://github.com/Amodio/debian-config/archive/master.zip
