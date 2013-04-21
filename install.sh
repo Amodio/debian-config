@@ -89,7 +89,7 @@ echo '--- PRESS ENTER WHEN READY ---'
 read
 vi /etc/fstab
 
-echo -n 'Remount /home ? [Y/n] '
+echo -n 'Remount /home (ignore me if you have not a dedicated partition)? [Y/n] '
 response=$(get_word Y)
 if [ "$response" != "n" ]; then
     # Useless.. unless you want to gain a little disk space..
