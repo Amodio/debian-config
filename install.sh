@@ -157,6 +157,8 @@ fi
 echo
 echo
 echo 'Will now install all the packages.. this may take a while (20 minutes).'
+echo 'DO NOT INTERRUPT THE INSTALLATION PROCESS.'
+echo
 echo '--- PRESS ENTER WHEN READY ---'
 read
 
@@ -285,9 +287,12 @@ if [ $DIFF_min -gt 0 ]; then
 else
     printf "%02ds.\n" $DIFF_sec
 fi
+echo
+echo
 echo 'Will now reboot to let you enjoy Openbox on Debian.'
 echo 'Please run `mpc update` after the reboot for your music to be loaded.'
 echo 'Peace.'
+echo
 echo '--- PRESS ENTER TO REBOOT ---'
 read
 reboot
