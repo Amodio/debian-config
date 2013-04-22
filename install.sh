@@ -263,6 +263,9 @@ aptitude -y install strace ltrace gdb
 # bzip2
 aptitude -y install bzip2
 
+# Calculator
+aptitude -y install bc calcoo
+
 # Sniffer
 aptitude -y install wireshark
 

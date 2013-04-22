@@ -122,3 +122,6 @@ Exhaustive list of installed packages
     * sharutils # base64
 * PDF Reader
     * evince
+* Calculator
+    * bc
+    * calcoo
