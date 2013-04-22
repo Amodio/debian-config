@@ -153,7 +153,7 @@ if [ "$response" == 'y' ]; then
 fi
 
 echo
-echo 'Will now all the packages.. this may take a while (20 minutes).'
+echo 'Will now install all the packages.. this may take a while (20 minutes).'
 echo '--- PRESS ENTER WHEN READY ---'
 read
 
