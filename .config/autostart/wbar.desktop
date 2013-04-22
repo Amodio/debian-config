@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=wbar
-Exec=wbar -above-desk -isize 64 -zoomf 1 -nanim 1 -bpress -balfa 0
-NoDisplay=true

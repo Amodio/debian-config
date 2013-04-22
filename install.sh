@@ -260,6 +260,8 @@ aptitude -y install gitk make gcc
 # Development (debug tools)
 aptitude -y install strace ltrace gdb
 
+# Time
+aptitude -y install time
 
 # bzip2
 aptitude -y install bzip2
