@@ -84,6 +84,7 @@ Exhaustive list of installed packages
 * Text editor
     * vim + vim-syntax-go
     * less
+    * libreoffice (the complete suite)
 * Terminal
     * rxvt-unicode
 * Web browsers
@@ -104,6 +105,8 @@ Exhaustive list of installed packages
     * wireshark
 * Development
     * git gitk # Graphical UI for git
+    * make
+    * gcc
 * Archives
     * unzip
     * unrar-free

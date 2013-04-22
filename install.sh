@@ -247,8 +247,8 @@ aptitude -y install screen
 # PDF reader
 aptitude -y install evince
 
-# Git
-aptitude -y install gitk
+# Development
+aptitude -y install gitk make gcc
 
 # bzip2
 aptitude -y install bzip2
@@ -258,6 +258,10 @@ aptitude -y install wireshark
 
 # smartctl (for HDD health check)
 aptitude -y install smartmontools
+
+# Libreoffice
+aptitude -y install libreoffice
+
 
 if [ $install_nvidia -eq 1 ]; then
     # NVIDIA proprietary drivers
