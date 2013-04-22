@@ -82,7 +82,7 @@ echo 'install optional stuff.'
 # Install ViM
 aptitude -y install vim vim-syntax-go
 
-echo -n 'Edit fstab [with ViM] (if you need to mount your /home)? [Y/n] '
+echo -n 'Edit fstab [with ViM] (/home will be mounted, strongly advised)? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
     # Directories to be created in /mnt/
@@ -107,6 +107,8 @@ if [ "$response" == 'y' ]; then
     echo '# Set /home and / (below) + /mnt/ mountpoints (above)' >> /etc/fstab
     blkid | sed 's/^/# /gi' >> /etc/fstab
 
+    echo
+    echo
     echo 'Will now edit /etc/fstab. You have to set /home + /mnt/* (ur mountpoints)'
     echo '--- PRESS ENTER WHEN READY ---'
     read
@@ -153,6 +155,7 @@ if [ "$response" == 'y' ]; then
 fi
 
 echo
+echo
 echo 'Will now install all the packages.. this may take a while (20 minutes).'
 echo '--- PRESS ENTER WHEN READY ---'
 read
@@ -190,7 +193,7 @@ aptitude -y install sharutils
 aptitude -y install bind9-host dnsutils
 
 # Unrar & unzip
-aptitude -y install unrar-nonfree unzip
+aptitude -y install rar unrar unzip
 
 # Bash completion
 aptitude -y install bash-completion

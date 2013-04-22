@@ -20,13 +20,13 @@ Provide
 -------
 
 Openbox (wallpapers randomly fetched from internet), MPD (music daemon), sudoers
-configured (password no more required using sudo); see `install.sh` for more.
+configured (password no more required using sudo); see the exhaustive list below.
 
 
 Preview
 -------
 
-The system will take approximately 3 GB on your SSD; reserve 6 to 10 GB.
+The system will take approximately 4 GB on your SSD; reserve 6 to 10 GB.
 The installation process is estimated to less than half an hour.
 Take a look at the result in the [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
@@ -40,7 +40,7 @@ wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/ima
 dd if=mini.iso of=/dev/sdX # Where X represents your key device
 ```
 
-Net-install Debian (without anything); this may take ~ 5 minutes.
+Net-install Debian (without anything); this may take ~ 6 minutes.
 Login as root then fetch and install my config files (this may take ~ 20m):
 ```
 bash -c "$(wget http://hydrupload.info/go.sh -O-)"
@@ -110,7 +110,7 @@ Exhaustive list of installed packages
     * eclipse
 * Archives
     * unzip
-    * unrar-free
+    * rar & unrar
 * Compression
     * bzip2
     * sharutils # For base64 decoding (uudecode)

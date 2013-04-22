@@ -7,3 +7,5 @@ Take a screen with a term and the command `df -h`.
 Configure the MTA daemon (to send real mails)?
 
 Add ViM config?
+
+Remove 2x(nvidia pkg warning)
