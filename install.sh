@@ -82,9 +82,6 @@ echo 'install optional stuff.'
 # Install ViM
 aptitude -y install vim vim-syntax-go
 
-# uudecode (Base64)
-aptitude -y install sharutils
-
 echo -n 'Edit fstab [with ViM] (if you need to mount your /home)? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
@@ -160,7 +157,7 @@ echo '--- PRESS ENTER WHEN READY ---'
 read
 
 # Replace /etc/apt/sources.list & update
-cp -f etc/apt/sources.list /etc/apt/sources.list
+cp -f etc/sources.list /etc/apt/sources.list
 aptitude update
 
 if [ $use_optional -eq 1 ]; then
@@ -184,6 +181,9 @@ echo "$username	ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Less
 aptitude -y install less
+
+# uudecode (Base64)
+aptitude -y install sharutils
 
 # Network
 aptitude -y install bind9-host dns-utils
@@ -262,6 +262,8 @@ aptitude -y install smartmontools
 # Libreoffice
 aptitude -y install libreoffice
 
+# Eclipse
+aptitude -y install eclipse
 
 if [ $install_nvidia -eq 1 ]; then
     # NVIDIA proprietary drivers

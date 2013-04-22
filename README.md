@@ -27,7 +27,7 @@ Preview
 -------
 
 The system will take approximately 3 GB on your SSD; reserve 6 to 10 GB.
-The installation process is estimated to (10m + 20m =) 30 minutes long.
+The installation process is estimated to (5m + 20m =) less than half an hour.
 Take a look at the result in the [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 
@@ -107,6 +107,7 @@ Exhaustive list of installed packages
     * git gitk # Graphical UI for git
     * make
     * gcc
+    * eclipse
 * Archives
     * unzip
     * unrar-free
