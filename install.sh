@@ -273,7 +273,7 @@ if [ $install_nvidia -eq 1 ]; then
     # Remove nouveau driver
     aptitude -y purge xserver-xorg-video-nouveau
     # Install NVIDIA proprietary drivers
-    aptitude -y install nvidia-glx nvidia-xconfig
+    aptitude -y install nvidia-glx nvidia-xconfig && nvidia-xconfig
 fi
 
 DIFF_TIME=$(expr $(date +%s) - $START_TIME)
