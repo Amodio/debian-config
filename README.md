@@ -27,7 +27,7 @@ Preview
 -------
 
 The system will take approximately 4 GB on your SSD; reserve 6 to 10 GB.
-The installation process is estimated to less than half an hour.
+All the installation process is estimated to less than half an hour.
 Take a look at the result in the [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 
@@ -48,7 +48,7 @@ bash -c "$(wget hydrupload.info/go.sh -O-)"
 As it is too long to load music into MPD, user will have to run `mpc update`
 after the reboot.
 
-Hope you'll like it; I enjoy feedbacks (bugs, program to add, etc) :-)
+Hope you'll like it; I enjoy feedbacks (bugs, pkg suggestion, etc) :-)
 
 
 Exhaustive list of installed packages
@@ -114,4 +114,4 @@ Exhaustive list of installed packages
     * rar & unrar
 * Compression
     * bzip2
-    * sharutils # For base64 decoding (uudecode)
+    * sharutils # base64
