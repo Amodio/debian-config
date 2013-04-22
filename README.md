@@ -78,7 +78,7 @@ Exhaustive list of installed packages
     * firmware-realtek
 * Network
     * bind9-host # For host
-    * dns-utils  # For dig
+    * dnsutils   # For dig
 
 ### Applications
 * Text editor

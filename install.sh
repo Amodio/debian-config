@@ -97,6 +97,7 @@ if [ "$response" == 'y' ]; then
     fi
 
     cp -f etc/fstab /etc/fstab
+    echo >> /etc/fstab
     for directory in $mountpoints; do
         echo "Creating /mnt/$directory directory."
         mkdir -p "/mnt/$directory"
@@ -107,7 +108,6 @@ if [ "$response" == 'y' ]; then
     blkid | sed 's/^/# /gi' >> /etc/fstab
 
     echo 'Will now edit /etc/fstab. You have to set /home + /mnt/* (ur mountpoints)'
-    echo 'You have just one try; when exiting from ViM, it will be too late! :p'
     echo '--- PRESS ENTER WHEN READY ---'
     read
     vi /etc/fstab
@@ -132,7 +132,7 @@ if [ "$response" == 'y' ]; then
     cp -f .conkyrc "/home/$username/.conkyrc"
     mkdir -p "/home/$username/.config"
     cp -rf .config/{autostart,openbox,volumeicon} "/home/$username/.config/"
-    if [ ! -f "/home/$username/.bashrc" ]; then
+    if [ -f "/home/$username/.bashrc" ]; then
         echo -n 'Do you really want to erase your .bashrc ? [y/N] '
         response=$(get_word n)
         if [ "$response" == 'y' ]; then
@@ -152,7 +152,8 @@ if [ "$response" == 'y' ]; then
     update-grub
 fi
 
-echo 'Now installing all the packages.. this may take a while (10-15 minutes).'
+echo
+echo 'Will now all the packages.. this may take a while (20 minutes).'
 echo '--- PRESS ENTER WHEN READY ---'
 read
 
@@ -186,7 +187,7 @@ aptitude -y install less
 aptitude -y install sharutils
 
 # Network
-aptitude -y install bind9-host dns-utils
+aptitude -y install bind9-host dnsutils
 
 # Unrar & unzip
 aptitude -y install unrar-nonfree unzip
@@ -215,7 +216,7 @@ aptitude -y install mingetty
 sed 's/--autologin \w*/--autologin '$username'/' etc/inittab > /etc/inittab
 
 # Propose a package to install whenever a command is not found
-aptitude -y install command-not-found && echo 'Do not worry about that dude, I and I handle this.' && update-command-not-found
+aptitude -y install command-not-found && echo 'Do not worry about that dude, I and I handle this.' && update-command-not-found && apt-file update
 
 # Install Web browsers
 # This is firefox
@@ -266,7 +267,9 @@ aptitude -y install libreoffice
 aptitude -y install eclipse
 
 if [ $install_nvidia -eq 1 ]; then
-    # NVIDIA proprietary drivers
+    # Remove nouveau driver
+    aptitude -y purge xserver-xorg-video-nouveau
+    # Install NVIDIA proprietary drivers
     aptitude -y install nvidia-glx nvidia-xconfig
 fi
 
