@@ -80,6 +80,8 @@ Exhaustive list of installed packages
     * bind9-host # For host
     * dnsutils   # For dig
     * whois
+* Crypto
+    * cryptsetup
 
 ### Applications
 * Text editor
@@ -115,3 +117,5 @@ Exhaustive list of installed packages
 * Compression
     * bzip2
     * sharutils # base64
+* PDF Reader
+    * evince
