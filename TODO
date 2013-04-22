@@ -1,11 +1,4 @@
-Fix bug with ViM: 'UltiSnips requires py >= 2.6 or any py3'
-
-Make a script directly downloadable/executable.
-
-Take a screen with a term and the command `df -h`.
+Remove 2x(nvidia pkg warning)
 
 Configure the MTA daemon (to send real mails)?
-
 Add ViM config?
-
-Remove 2x(nvidia pkg warning)
