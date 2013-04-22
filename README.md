@@ -111,6 +111,9 @@ Exhaustive list of installed packages
     * make
     * gcc
     * eclipse
+* Development (debugging tools)
+    * strace & ltrace
+    * gdb
 * Archives
     * unzip
     * rar & unrar

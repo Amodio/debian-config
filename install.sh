@@ -36,6 +36,10 @@ if [ "$response" != "$username" ]; then
     echo 'Setting the username to "'$username'".'
 fi
 
+# Install ViM
+aptitude -y install vim-nox vim-syntax-go
+echo
+
 # Extra hosts
 echo -n 'Do you want to add extra hosts? [Y/n] '
 response=$(get_word Y)
@@ -78,9 +82,6 @@ if [ "$response" == 'n' ]; then
     use_optional=0
 fi
 echo 'install optional stuff.'
-
-# Install ViM
-aptitude -y install vim vim-syntax-go
 
 echo -n 'Edit fstab [with ViM] (/home will be mounted, strongly advised)? [Y/n] '
 response=$(get_word Y)
@@ -255,6 +256,10 @@ aptitude -y install evince
 
 # Development
 aptitude -y install gitk make gcc
+
+# Development (debug tools)
+aptitude -y install strace ltrace gdb
+
 
 # bzip2
 aptitude -y install bzip2
