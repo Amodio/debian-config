@@ -266,6 +266,9 @@ aptitude -y install bzip2
 # Calculator
 aptitude -y install bc calcoo
 
+# Misc
+aptitude -y install pwgen
+
 # Sniffer
 aptitude -y install wireshark
 

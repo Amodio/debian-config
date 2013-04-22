@@ -125,3 +125,5 @@ Exhaustive list of installed packages
 * Calculator
     * bc
     * calcoo
+* Misc
+    * pwgen # Random password generator
