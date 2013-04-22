@@ -242,6 +242,9 @@ aptitude -y install lftp
 # Install eog (image viewer)
 aptitude -y install eog
 
+# Install gimp
+aptitude -y install gimp
+
 # News reader
 aptitude -y install slrn
 

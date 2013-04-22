@@ -98,8 +98,9 @@ Exhaustive list of installed packages
     * mplayer
 * FTP Client
     * lftp
-* Image Viewer
-    * eog
+* Image
+    * eog  # Viewer
+    * gimp # Editor
 * News reader
     * slrn
 * IRC client
