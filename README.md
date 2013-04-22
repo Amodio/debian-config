@@ -79,6 +79,7 @@ Exhaustive list of installed packages
 * Network
     * bind9-host # For host
     * dnsutils   # For dig
+    * whois
 
 ### Applications
 * Text editor

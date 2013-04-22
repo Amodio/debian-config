@@ -192,7 +192,7 @@ aptitude -y install less
 aptitude -y install sharutils
 
 # Network
-aptitude -y install bind9-host dnsutils
+aptitude -y install bind9-host dnsutils whois
 
 # Unrar & unzip
 aptitude -y install rar unrar unzip
