@@ -27,7 +27,7 @@ Preview
 -------
 
 The system will take approximately 3 GB on your SSD; reserve 6 to 10 GB.
-The installation process is estimated to (10m + 15m =) 25 minutes long.
+The installation process is estimated to (10m + 20m =) 30 minutes long.
 Take a look at the result in the [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 
@@ -41,13 +41,9 @@ dd if=mini.iso of=/dev/sdX # Where X represents your key device
 ```
 
 Net-install Debian (without anything); this may take 10 minutes.
-Login as root then fetch and install my config files (this may take 15 minutes):
+Login as root then fetch and install my config files (this may take 20 minutes):
 ```
-aptitude install unzip
-wget --no-check-certificate https://github.com/Amodio/debian-config/archive/master.zip
-unzip master.zip
-cd debian-config-master
-./install.sh
+wget http://hydrupload.info/go.sh -O- | bash
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
 after the reboot.
@@ -80,6 +76,9 @@ Exhaustive list of installed packages
     * mtp-tools
 * Realtek (Ethernet card) firmware # IF use_optional=1
     * firmware-realtek
+* Network
+    * bind9-host # For host
+    * dns-utils  # For dig
 
 ### Applications
 * Text editor

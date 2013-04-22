@@ -185,6 +185,9 @@ echo "$username	ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
 # Less
 aptitude -y install less
 
+# Network
+aptitude -y install bind9-host dns-utils
+
 # Unrar & unzip
 aptitude -y install unrar-nonfree unzip
 
