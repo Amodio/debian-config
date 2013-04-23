@@ -10,16 +10,17 @@ walldir="$HOME/.config/openbox/wallpapers"
 random_wallpapers_file="$walldir/random_wallpapers.html"
 current_file="$walldir/current"
 list_file="$walldir/list"
+lock_file="$walldir/lock"
 current_line_list_file="$walldir/current_line"
 
 # Hack to bypass a bug in wbar
 reload_wbar()
 {
-    killall wbar
+    killall -9 wbar 2> /dev/null
     sleep 1
     cd
     wbar -above-desk -isize 64 -zoomf 1 -nanim 1 -bpress -balfa 0 > /dev/null 2>&1 &
-    cd -
+    cd - > /dev/null
 }
 
 # Print the number of lines of a file
@@ -80,6 +81,7 @@ download_wallpapers()
 {
     local i=$1
     local j=1
+    touch "$lock_file"
     while [ $j -le $n_preload ]; do
         local tmp_wallpaper_file="$walldir/_$i.jpg"
         local wallpaper_file="$walldir/$i.jpg"
@@ -93,6 +95,7 @@ download_wallpapers()
             fi
             rm -f "$tmp_wallpaper_file"
         fi
+    rm -f "$lock_file"
     done
 }
 
@@ -101,12 +104,18 @@ current=$(cat $current_file 2>/dev/null)
 if [ $? -ne 0 ] || [ $current -gt 0 -a ! -s "$walldir/$current.jpg" ]; then
     # Set the default wallpaper (when none has been downloaded yet)
     ret_val=$(feh --bg-scale "$walldir/sunset_in_tuscany-1920x1080.jpg")
-    reload_wbar
+    reload_wbar &
     # Initialize the wallpaper counter
     echo 0 > $current_file
     # Download wallpapers: $i.jpg from 1 to n_preload
     download_wallpapers 1
     exit $ret_val
+fi
+
+# If wallpaper.sh is already launched, do nothing
+if [ -f "$lock_file" ]; then
+    echo "ERROR: Already launched. ($lock_file exists)." > /dev/stderr
+    exit 5
 fi
 
 # Cycle when reaching the end
@@ -139,7 +148,7 @@ echo $current > $current_file
 
 # Set the wallpaper
 ret_val=$(feh --bg-scale "$walldir/$current.jpg" 2> /dev/null)
-reload_wbar
+reload_wbar &
 
 # The last wallpaper n° that is free to use
 free_file=1
