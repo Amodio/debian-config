@@ -1,2 +1,4 @@
 Add ViM config?
 Remove 2x(nvidia pkg warning)
+
+wbar bug (2 instances launch) is still present
