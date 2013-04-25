@@ -245,6 +245,9 @@ aptitude -y install eog
 # Install gimp
 aptitude -y install gimp
 
+# Install hexedit
+aptitude -y install hexedit
+
 # News reader
 aptitude -y install slrn
 

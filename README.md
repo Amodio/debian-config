@@ -128,3 +128,4 @@ Exhaustive list of installed packages
     * calcoo
 * Misc
     * pwgen # Random password generator
+    * hexedit # Hexadecimal editor
