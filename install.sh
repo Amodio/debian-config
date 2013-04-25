@@ -272,6 +272,9 @@ aptitude -y install bzip2
 # Calculator
 aptitude -y install bc calcoo
 
+# Gedit
+aptitude -y install gedit
+
 # Misc
 aptitude -y install pwgen
 

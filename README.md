@@ -86,6 +86,7 @@ Exhaustive list of installed packages
 ### Applications
 * Text editor
     * vim-nox + vim-syntax-go
+    * gedit
     * less
     * libreoffice (the complete suite)
 * Terminal
