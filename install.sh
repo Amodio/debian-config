@@ -135,6 +135,7 @@ if [ "$response" == 'y' ]; then
     cp -f .conkyrc "/home/$username/.conkyrc"
     mkdir -p "/home/$username/.config"
     cp -rf .config/{autostart,openbox,volumeicon} "/home/$username/.config/"
+    chown -R "$username" "/home/$username/.config/"
     if [ -f "/home/$username/.bashrc" ]; then
         echo -n 'Do you really want to erase your .bashrc ? [y/N] '
         response=$(get_word n)
