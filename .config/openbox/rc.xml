@@ -256,6 +256,11 @@
         <command>rxvt-unicode -geometry 80x25 -rv -tr -vb -sr -bc -C -fn "xft:DejaVuSansMono:size=13" -sh 60</command>
       </action>
     </keybind>
+    <keybind key="XF86Tools">
+      <action name="Execute">
+        <command>sonata</command>
+      </action>
+    </keybind>
     <keybind key="XF86AudioPrev">
       <action name="Execute">
         <command>mpc prev</command>
