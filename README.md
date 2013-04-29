@@ -46,7 +46,7 @@ Login as root then fetch and install my config files (this may take ~ 20m):
 bash -c "$(wget hydrupload.info/go.sh -O-)"
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
-after the reboot.
+after the reboot. Put your music in `/home/musique` (hint: symbolic links).
 
 Hope you'll like it; I enjoy feedbacks (bugs, pkg suggestion, etc) :-)
 
