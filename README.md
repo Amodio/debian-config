@@ -47,6 +47,11 @@ bash -c "$(wget hydrupload.info/go.sh -O-)"
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
 after the reboot. Put your music in `/home/musique` (hint: symbolic links).
+You may also want to install [MPD_Notification](https://github.com/Amodio/mpd_notification).
+```
+cd mpd_notification
+make install distclean
+```
 
 Hope you'll like it; I enjoy feedbacks (bugs, pkg suggestion, etc) :-)
 
@@ -82,7 +87,8 @@ Exhaustive list of installed packages
     * whois
 * Crypto
     * cryptsetup
-
+* Misc
+    * libnotify-dev libmpdclient-dev
 ### Applications
 * Text editor
     * vim-nox + vim-syntax-go

@@ -1,6 +1,8 @@
-Add ViM config?
 Remove 2x(nvidia pkg warning)
 
-Configure everything at the beginning
+Configure everything at the beginning (then validate)
 
 Permit to not install optional packages (like eclipse).
+
+Add ViM config?
+Improve conky config file?
