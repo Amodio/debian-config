@@ -1,5 +1,5 @@
-i: /usr/share/wbar/iconpack/wbar.osx/osxbarback.png
-c: wbar --bpress --above-desk --pos bottom --isize 60 --nanim 1 --zoomf 1,000000 --balfa 90 --falfa 75
+i: /usr/share/pixmaps/wbar/dock.png
+c: wbar --bpress --above-desk --pos bottom --isize 60 --nanim 1 --zoomf 1,000000 --balfa 99
 t: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans/12
 
 i: /usr/share/pixmaps/sonata.png
