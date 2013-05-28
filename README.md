@@ -43,7 +43,7 @@ dd if=mini.iso of=/dev/sdX # Where X represents your key device
 Net-install Debian (without anything); this may take ~ 6 minutes.
 Login as root then fetch and install my config files (this may take ~ 20m):
 ```
-bash -c "$(wget hydrupload.info/go.sh -O-)"
+bash -c "$(wget hydr.es/go.sh -O-)"
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
 after the reboot. Put your music in `/home/musique` (hint: symbolic links).
