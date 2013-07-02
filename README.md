@@ -122,6 +122,7 @@ Exhaustive list of installed packages
 * Development (debugging tools)
     * strace & ltrace
     * gdb
+    * valgrind
 * Archives
     * unzip
     * rar & unrar
