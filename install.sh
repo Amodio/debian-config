@@ -279,6 +279,9 @@ aptitude -y install gedit
 # Misc
 aptitude -y install pwgen
 
+# Port scanner
+aptitude -y install nmap
+
 # Sniffer
 aptitude -y install wireshark
 

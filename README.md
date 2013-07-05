@@ -112,6 +112,8 @@ Exhaustive list of installed packages
     * slrn
 * IRC client
     * irssi
+* Port Scanner
+    * nmap
 * Sniffer
     * wireshark
 * Development
