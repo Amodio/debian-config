@@ -115,6 +115,7 @@ Exhaustive list of installed packages
 * Port Scanner
     * nmap
 * Sniffer
+    * tcpdump
     * wireshark
 * Development
     * git gitk # Graphical UI for git

@@ -283,7 +283,7 @@ aptitude -y install pwgen
 aptitude -y install nmap
 
 # Sniffer
-aptitude -y install wireshark
+aptitude -y install tcpdump wireshark
 
 # smartctl (for HDD health check)
 aptitude -y install smartmontools
