@@ -121,7 +121,6 @@ Exhaustive list of installed packages
     * git gitk # Graphical UI for git
     * make
     * gcc
-    * eclipse
 * Development (debugging tools)
     * strace & ltrace
     * gdb

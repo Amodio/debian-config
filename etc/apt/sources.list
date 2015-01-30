@@ -1,0 +1,8 @@
+deb http://debian.ens-cachan.fr/ftp/debian/ testing main contrib non-free
+deb-src http://debian.ens-cachan.fr/ftp/debian/ testing main contrib non-free
+
+deb http://debian.ens-cachan.fr/ftp/debian/ stable main contrib non-free
+deb-src http://debian.ens-cachan.fr/ftp/debian/ stable main contrib non-free
+
+deb http://security.debian.org/ testing/updates main
+# deb-src http://security.debian.org/ testing/updates main

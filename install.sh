@@ -1,15 +1,9 @@
 #!/bin/bash
 
 if [ "$USER" != 'root' ]; then
-    echo 'Please run me when logged as root.' > /dev/stderr
+    echo 'Please run with root privileges.' > /dev/stderr
     exit 1
 fi
-
-START_TIME=$(date +%s)
-
-clear
-echo "Let's start, hope you gonna be a Yes man ;)"
-echo
 
 # One argument: default value if nothing was read
 function get_word()
@@ -27,6 +21,10 @@ function get_word()
     fi
 }
 
+START_TIME=$(date +%s)
+
+clear
+
 # Your username
 username='da'
 echo -n 'What is your username ['$username']? '
@@ -41,12 +39,12 @@ aptitude -y install vim-nox vim-syntax-go
 echo
 
 # Extra hosts
-echo -n 'Do you want to add extra hosts? [Y/n] '
+echo -n 'Do you want to replace your hosts file? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
-    cat etc/hosts >> /etc/hosts
+    cp -f etc/hosts /etc/hosts
     echo 'Adding hosts.'
-    echo -n 'Do you want to edit [with ViM] /etc/hosts? [y/N] '
+    echo -n 'Do you want to edit /etc/hosts? [y/N] '
     response=$(get_word N)
     if [ "$response" == 'y' ]; then
         vi etc/hosts
@@ -54,7 +52,7 @@ if [ "$response" == 'y' ]; then
 fi
 
 # Directory containing your music files
-mpd_zik_dir='/home/musique'
+mpd_zik_dir='/stockage/musique'
 echo -n 'What is your music directory ['$mpd_zik_dir']? '
 response=$(get_word $mpd_zik_dir)
 if [ "$response" != "$mpd_zik_dir" ]; then
@@ -76,14 +74,14 @@ echo 'install NVIDIA drivers.'
 use_optional=1
 echo -n 'Should we install optional stuff? [Y/n] '
 response=$(get_word Y)
-echo -n 'Will '
+echo -n 'OK, will '
 if [ "$response" == 'n' ]; then
     echo -n 'not '
     use_optional=0
 fi
 echo 'install optional stuff.'
 
-echo -n 'Edit fstab [with ViM] (/home will be mounted, strongly advised)? [Y/n] '
+echo -n 'Edit fstab (/home will be mounted, strongly advised)? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
     # Directories to be created in /mnt/
@@ -118,8 +116,6 @@ if [ "$response" == 'y' ]; then
     echo -n 'Mount /home? [Y/n] '
     response=$(get_word Y)
     if [ "$response" == 'y' ]; then
-        # Useless.. unless you want to gain a little disk space..
-        # rm -rf /home; mkdir /home
         mount /home
     fi
 fi
@@ -165,7 +161,8 @@ echo '--- PRESS ENTER WHEN READY ---'
 read
 
 # Replace /etc/apt/sources.list & update
-cp -f etc/sources.list /etc/apt/sources.list
+cp -f etc/apt/sources.list /etc/apt/sources.list
+cp -f etc/apt/apt.conf.d/80default-distrib /etc/apt/apt.conf.d/80default-distrib
 aptitude update
 
 if [ $use_optional -eq 1 ]; then
@@ -215,12 +212,13 @@ aptitude -y install rxvt-unicode
 # Install musical part
 aptitude -y install alsa-utils
 aptitude -y install sonata mpd mpc
-echo 'Do not worry about MPD complaining. music_directory is not set yet.'
 sed 's#^music_directory.*$#music_directory "'$mpd_zik_dir'"#' etc/mpd.conf > /etc/mpd.conf
+echo 'Do not worry about MPD complaining: music_directory is now set.'
 
 # Autologin
-aptitude -y install mingetty
-sed 's/--autologin \w*/--autologin '$username'/' etc/inittab > /etc/inittab
+tempfile=$(tempfile)
+sed 's#agetty %I 38400#agetty --noclear -a '$username' %I $TERM#' /etc/systemd/system/getty.target.wants/getty@tty1.service > $tempfile
+mv -f $tempfile /etc/systemd/system/getty.target.wants/getty@tty1.service
 
 # Propose a package to install whenever a command is not found
 aptitude -y install command-not-found && echo 'Do not worry about that dude, I and I handle this.' && update-command-not-found && apt-file update
@@ -291,9 +289,6 @@ aptitude -y install smartmontools
 # Libreoffice
 aptitude -y install libreoffice
 
-# Eclipse
-aptitude -y install eclipse
-
 if [ $install_nvidia -eq 1 ]; then
     # Remove nouveau driver
     aptitude -y purge xserver-xorg-video-nouveau
@@ -314,7 +309,7 @@ echo
 echo
 echo 'Will now reboot to let you enjoy Openbox on Debian.'
 echo 'Please run `mpc update` after the reboot for your music to be loaded.'
-echo 'Peace.'
+echo 'Peace. Signing off.'
 echo
 echo '--- PRESS ENTER TO REBOOT ---'
 read
