@@ -296,6 +296,8 @@ if [ $install_nvidia -eq 1 ]; then
     aptitude -y install nvidia-glx nvidia-xconfig && nvidia-xconfig
 fi
 
+cp -f etc/resolv.conf /etc/resolv.conf
+
 DIFF_TIME=$(expr $(date +%s) - $START_TIME)
 DIFF_min=$(expr $DIFF_TIME \/ 60)
 DIFF_sec=$(expr $DIFF_TIME % 60)
