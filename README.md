@@ -72,6 +72,7 @@ Exhaustive list of installed packages
     * cryptsetup
 * Misc
     * libnotify-dev libmpdclient-dev
+
 ### Applications
 * Text editor
     * vim-nox + vim-syntax-go
