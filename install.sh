@@ -131,6 +131,7 @@ if [ "$response" == 'y' ]; then
     cp -f .xscreensaver "/home/$username/.xscreensaver"
     cp -f .xsession "/home/$username/.xsession"
     cp -f .conkyrc "/home/$username/.conkyrc"
+    cp -f .vimrc "/home/$username/.vimrc"
     mkdir -p "/home/$username/.config"
     cp -rf .config/{autostart,openbox,volumeicon} "/home/$username/.config/"
     chown -R "$username" "/home/$username/.config/"
@@ -154,6 +155,13 @@ if [ "$response" == 'y' ]; then
     #mv -f /etc/default/grub2 /etc/default/grub
     update-grub
 fi
+# Networking
+echo -n 'Statically configure your network interface [y/N] '
+response=$(get_word N)
+if [ "$response" == 'y' ]; then
+    cp -f etc/network/interfaces /etc/network/interfaces
+fi
+
 
 echo
 echo
@@ -221,10 +229,6 @@ sed 's#^music_directory.*$#music_directory "'$mpd_zik_dir'"#' etc/mpd.conf > /et
 echo 'Do not worry about MPD complaining: music_directory is now set.'
 
 # Autologin
-cp -r system/getty@tty1.service.d/ /etc/systemd/system/
-
-# Networking
-cp etc/network/interfaces /etc/network/
 cp -r system/getty@tty1.service.d/ /etc/systemd/system/
 
 # Propose a package to install whenever a command is not found
