@@ -8,10 +8,11 @@ The required space is about 6 GB, but reserve at least 10 GB.
 All the installation process is estimated to less than half an hour.
 Take a look at the result in this [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
-You will get a fresh Debian 64-bit from the testing (+ stable) branch.
-Lightweight OpenBOX environment, with automatic and random fetching of wallpapers,
-MPD (music daemon) + Sonata/mpc (GUI/cmd line client), sudoers configured to no more
-require the password when using sudo; see the exhaustive package list below.
+You will get a fresh Debian 64-bit from the testing (+ stable) branch, with:
+* lightweight OpenBOX environment that automatically renews its the wallpaper,
+* MPD (music daemon) + Sonata/mpc (GUI/cmd line music client),
+* sudoers configured to no more require the password when using sudo,
+* some packages (exhaustive list below).
 
 
 Installation
