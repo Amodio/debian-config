@@ -9,7 +9,7 @@ All the installation process is estimated to less than half an hour.
 Take a look at the result in this [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 You will get a fresh Debian 64-bit from the testing (+ stable) branch(es), with:
-* lightweight OpenBOX environment that automatically renews its the wallpaper,
+* a lightweight OpenBOX environment that automatically renews its wallpaper,
 * MPD (music daemon) + Sonata/mpc (GUI/cmd line music client),
 * sudoers configured to no more require the password when using sudo,
 * some packages (exhaustive list below).
