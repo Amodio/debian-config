@@ -41,7 +41,6 @@ echo -n 'Do you want to replace your hosts file? [y/N] '
 response=$(get_word N)
 if [ "$response" == 'y' ]; then
     cp -f etc/hosts /etc/hosts
-    echo 'Adding hosts.'
     echo -n 'Do you want to edit /etc/hosts now? [y/N] '
     response=$(get_word N)
     if [ "$response" == 'y' ]; then
@@ -59,7 +58,7 @@ if [ "$response" != "$mpd_zik_dir" ]; then
 fi
 
 install_nvidia=1
-echo -n 'Should we install NVIDIA drivers ? [Y/n] '
+echo -n 'Should we install the NVIDIA drivers ? [Y/n] '
 response=$(get_word Y)
 echo -n 'Will '
 if [ "$response" == 'n' ]; then
@@ -79,30 +78,26 @@ if [ "$response" == 'n' ]; then
 fi
 echo 'install optional stuff.'
 
-echo -n 'Edit the partitions from /etc/fstab? [Y/n] '
-response=$(get_word Y)
+echo -n 'Edit the partitions from /etc/fstab? [y/N] '
+response=$(get_word N)
 if [ "$response" == 'y' ]; then
-    # Directories to be created in /mnt/
-    mountpoints='canon groar nexus win win2'
-    echo -n 'Create mountpoint directories in /mnt ? [y/N] '
-    response=$(get_word N)
-    if [ "$response" == 'y' ]; then
-        echo "Will create mountpoints: \"$mountpoints\" in /mnt."
-    else
-        mountpoints=""
-        echo 'Will not create any mountpoint in /mnt.'
-    fi
-
-    echo -n 'Copy my partition table to /etc/fstab ? [y/N] '
-    response=$(get_word N)
+    echo -n 'Copy my partition table to /etc/fstab ? [Y/n] '
+    response=$(get_word Y)
     if [ "$response" == 'y' ]; then
         cp -f etc/fstab /etc/fstab
         echo >> /etc/fstab
-        for directory in $mountpoints; do
-            echo "Creating /mnt/$directory directory."
-            mkdir -p "/mnt/$directory"
-            echo "# /mnt/$directory" >> /etc/fstab
-        done
+
+        echo -n 'Create mountpoint directories in /mnt ? [Y/n] '
+        response=$(get_word Y)
+        if [ "$response" == 'y' ]; then
+            # Directories to be created in /mnt/
+            mountpoints='canon groar nexus win win2'
+            for directory in $mountpoints; do
+                echo "Creating /mnt/$directory directory."
+                mkdir -p "/mnt/$directory"
+                echo "# /mnt/$directory" >> /etc/fstab
+            done
+        fi
 
         echo '# Set /home and / (below) + /mnt/ mountpoints (above):' >> /etc/fstab
         blkid | sed 's/^/# /gi' >> /etc/fstab
@@ -123,7 +118,7 @@ if [ "$response" == 'y' ]; then
 fi
 
 cp -f .bashrc '/root/.bashrc'
-echo -n "Copy default config. files to your \$HOME? (allow overwrite) [Y/n] "
+echo -n 'Copy default config. files to your $HOME? (allow overwrite) [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
     cp -f .wbar "/home/$username/.wbar"
@@ -136,8 +131,8 @@ if [ "$response" == 'y' ]; then
     cp -rf .config/{autostart,openbox,volumeicon} "/home/$username/.config/"
     chown -R "$username" "/home/$username/.config/"
     if [ -f "/home/$username/.bashrc" ]; then
-        echo -n 'Are you sure you really want to erase your .bashrc ? [y/N] '
-        response=$(get_word n)
+        echo -n 'Are you sure you really want to erase your $HOME/.bashrc? [y/N] '
+        response=$(get_word N)
         if [ "$response" == 'y' ]; then
             cp -f .bashrc "/home/$username/.bashrc"
         fi
