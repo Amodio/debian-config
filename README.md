@@ -1,39 +1,29 @@
 debian-config: My config files to run a fresh debian (netinstall)
 ==============
 
-Purpose
--------
+About
+-----
 
-I aim at providing a script to run on a fresh debian netinstall to let you
-enjoy my lightweight GNU/Linux environment.
-
-
-Provide
--------
-
-Openbox with automatic and random fetching (from the internet) of wallpapers,
-MPD (music daemon) + Sonata/mpc (GUI/cmd line), sudoers configured to no more
-require the password when using sudo; see the exhaustive list below.
-
-
-Preview
--------
-
-The system will take approximately 6 GB on your SSD; reserve at least 10 GB.
+The required space is about 6 GB, but reserve at least 10 GB.
 All the installation process is estimated to less than half an hour.
 Take a look at the result in this [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
+
+You will get a fresh Debian 64-bit from the testing (+ stable) branch.
+Lightweight OpenBOX environment, with automatic and random fetching of wallpapers,
+MPD (music daemon) + Sonata/mpc (GUI/cmd line client), sudoers configured to no more
+require the password when using sudo; see the exhaustive package list below.
 
 
 Installation
 ------------
 
-Inscribe the current Debian 64-bit network installation ISO to an USB key:
+Fetch then write the current Debian 64-bit network installation ISO to an USB key:
 ```
 wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/mini.iso
 dd if=mini.iso of=/dev/sdX # Where X represents your key device, beware any mistake!
 ```
 
-Boot on the USB key and Net-install the Debian; this may take ~ 6 minutes.
+Boot on the USB key and launch the installation (this may take ~ 6 minutes).
 Login as root then fetch and install my config files (this may take ~ 20m):
 ```
 bash -c "$(wget hydr.es/go.sh -O-)"
