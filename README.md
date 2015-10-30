@@ -4,56 +4,49 @@ debian-config: My config files to run a fresh debian (netinstall)
 Purpose
 -------
 
-I aim at providing a script to run on a fresh debian netinstall (without the
-graphical environment, etc) in order to let you enjoy a lightweight linux
-environment.
-
-
-Hidden purpose
---------------
-
-There is no dark side like a mass-backdooring idea, there are more efficient
-ways for that ;p
+I aim at providing a script to run on a fresh debian netinstall to let you
+enjoy my lightweight GNU/Linux environment.
 
 
 Provide
 -------
 
-Openbox (wallpapers randomly fetched from internet), MPD (music daemon), sudoers
-configured (password no more required using sudo); see the exhaustive list below.
+Openbox with automatic and random fetching (from the internet) of wallpapers,
+MPD (music daemon) + Sonata/mpc (GUI/cmd line), sudoers configured to no more
+require the password when using sudo; see the exhaustive list below.
 
 
 Preview
 -------
 
-The system will take approximately 4 GB on your SSD; reserve 6 to 10 GB.
+The system will take approximately 6 GB on your SSD; reserve at least 10 GB.
 All the installation process is estimated to less than half an hour.
-Take a look at the result in the [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
+Take a look at the result in this [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 
 Installation
 ------------
 
-Prepare an USB key to erase (you will have to boot on it):
+Inscribe the current Debian 64-bit network installation ISO to an USB key:
 ```
 wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/mini.iso
-dd if=mini.iso of=/dev/sdX # Where X represents your key device
+dd if=mini.iso of=/dev/sdX # Where X represents your key device, beware any mistake!
 ```
 
-Net-install Debian (without anything); this may take ~ 6 minutes.
+Boot on the USB key and Net-install the Debian; this may take ~ 6 minutes.
 Login as root then fetch and install my config files (this may take ~ 20m):
 ```
 bash -c "$(wget hydr.es/go.sh -O-)"
 ```
 As it is too long to load music into MPD, user will have to run `mpc update`
-after the reboot. Put your music in `/home/musique` (hint: symbolic links).
-You may also want to install [MPD_Notification](https://github.com/Amodio/mpd_notification).
+after the reboot. Put your music in `/home/musique` (hint: use symbolic links).
+You may also want to install [MPD_Notification](https://github.com/Amodio/mpd_notification):
 ```
 cd mpd_notification
 make install distclean
 ```
 
-Hope you'll like it; I enjoy feedbacks (bugs, pkg suggestion, etc) :-)
+Hope you'll like it, if you miss any firmware/package you should tell me about it ;)
 
 
 Exhaustive list of installed packages
