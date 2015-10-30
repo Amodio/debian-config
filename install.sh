@@ -288,7 +288,7 @@ aptitude -y install tcpdump wireshark
 aptitude -y install smartmontools
 
 # Libreoffice
-aptitude -y install libreoffice
+aptitude -y install libreoffice libreoffice-pdfimport
 
 if [ $install_nvidia -eq 1 ]; then
     # Remove nouveau driver

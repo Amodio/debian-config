@@ -78,7 +78,7 @@ Exhaustive list of installed packages
     * vim-nox + vim-syntax-go
     * gedit
     * less
-    * libreoffice (the complete suite)
+    * libreoffice libreoffice-pdfimport
 * Terminal
     * rxvt-unicode
 * Web browsers
