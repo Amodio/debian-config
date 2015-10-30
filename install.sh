@@ -251,9 +251,6 @@ aptitude -y install gimp
 # Install hexedit
 aptitude -y install hexedit
 
-# News reader
-aptitude -y install slrn
-
 # IRC client
 aptitude -y install irssi
 

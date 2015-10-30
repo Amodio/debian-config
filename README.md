@@ -92,8 +92,6 @@ Exhaustive list of installed packages
 * Image
     * eog  # Viewer
     * gimp # Editor
-* News reader
-    * slrn
 * IRC client
     * irssi
 * Port Scanner
