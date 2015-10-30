@@ -1,8 +1,3 @@
-Remove 2x(nvidia pkg warning)
+Remove the two Nvidia pkg warnings?
 
-Configure everything at the beginning (then validate)
-
-Permit to not install optional packages (like eclipse).
-
-Add ViM config?
-Improve conky config file?
+Pack everything into a single ISO file.

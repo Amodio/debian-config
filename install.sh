@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$USER" != 'root' ]; then
-    echo 'Please run with root privileges.' > /dev/stderr
+    echo 'Please run me as root.' > /dev/stderr
     exit 1
 fi
 
@@ -23,6 +23,8 @@ function get_word()
 
 START_TIME=$(date +%s)
 
+# Install ViM
+aptitude -y install vim-nox vim-syntax-go
 clear
 
 # Your username
@@ -34,17 +36,13 @@ if [ "$response" != "$username" ]; then
     echo 'Setting the username to "'$username'".'
 fi
 
-# Install ViM
-aptitude -y install vim-nox vim-syntax-go
-echo
-
 # Extra hosts
-echo -n 'Do you want to replace your hosts file? [Y/n] '
-response=$(get_word Y)
+echo -n 'Do you want to replace your hosts file? [y/N] '
+response=$(get_word N)
 if [ "$response" == 'y' ]; then
     cp -f etc/hosts /etc/hosts
     echo 'Adding hosts.'
-    echo -n 'Do you want to edit /etc/hosts? [y/N] '
+    echo -n 'Do you want to edit /etc/hosts now? [y/N] '
     response=$(get_word N)
     if [ "$response" == 'y' ]; then
         vi etc/hosts
@@ -52,12 +50,12 @@ if [ "$response" == 'y' ]; then
 fi
 
 # Directory containing your music files
-mpd_zik_dir='/stockage/musique'
+mpd_zik_dir='/home/musique'
 echo -n 'What is your music directory ['$mpd_zik_dir']? '
 response=$(get_word $mpd_zik_dir)
 if [ "$response" != "$mpd_zik_dir" ]; then
     mpd_zik_dir=$response
-    echo 'Setting the music dir to "'$mpd_zik_dir'".'
+    echo 'Setting the music directory to "'$mpd_zik_dir'".'
 fi
 
 install_nvidia=1
@@ -81,35 +79,39 @@ if [ "$response" == 'n' ]; then
 fi
 echo 'install optional stuff.'
 
-echo -n 'Edit fstab (/home will be mounted, strongly advised)? [Y/n] '
+echo -n 'Edit the partitions from /etc/fstab? [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
     # Directories to be created in /mnt/
     mountpoints='canon groar nexus win win2'
-    echo -n 'Create mountpoint directories in /mnt ? [Y/n] '
-    response=$(get_word Y)
+    echo -n 'Create mountpoint directories in /mnt ? [y/N] '
+    response=$(get_word N)
     if [ "$response" == 'y' ]; then
         echo "Will create mountpoints: \"$mountpoints\" in /mnt."
     else
         mountpoints=""
-        echo 'Will not create any mountpoints in /mnt.'
+        echo 'Will not create any mountpoint in /mnt.'
     fi
 
-    cp -f etc/fstab /etc/fstab
-    echo >> /etc/fstab
-    for directory in $mountpoints; do
-        echo "Creating /mnt/$directory directory."
-        mkdir -p "/mnt/$directory"
-        echo "# /mnt/$directory" >> /etc/fstab
-    done
+    echo -n 'Copy my partition table to /etc/fstab ? [y/N] '
+    response=$(get_word N)
+    if [ "$response" == 'y' ]; then
+        cp -f etc/fstab /etc/fstab
+        echo >> /etc/fstab
+        for directory in $mountpoints; do
+            echo "Creating /mnt/$directory directory."
+            mkdir -p "/mnt/$directory"
+            echo "# /mnt/$directory" >> /etc/fstab
+        done
 
-    echo '# Set /home and / (below) + /mnt/ mountpoints (above)' >> /etc/fstab
-    blkid | sed 's/^/# /gi' >> /etc/fstab
+        echo '# Set /home and / (below) + /mnt/ mountpoints (above):' >> /etc/fstab
+        blkid | sed 's/^/# /gi' >> /etc/fstab
+    fi
 
     echo
     echo
-    echo 'Will now edit /etc/fstab. You have to set /home + /mnt/* (ur mountpoints)'
-    echo '--- PRESS ENTER WHEN READY ---'
+    echo 'Will now edit /etc/fstab. You can set /home + /mnt/* (your mountpoints).'
+    echo '--------- PRESS ENTER WHEN READY ---------'
     read
     vi /etc/fstab
 
@@ -133,7 +135,7 @@ if [ "$response" == 'y' ]; then
     cp -rf .config/{autostart,openbox,volumeicon} "/home/$username/.config/"
     chown -R "$username" "/home/$username/.config/"
     if [ -f "/home/$username/.bashrc" ]; then
-        echo -n 'Do you really want to erase your .bashrc ? [y/N] '
+        echo -n 'Are you sure you really want to erase your .bashrc ? [y/N] '
         response=$(get_word n)
         if [ "$response" == 'y' ]; then
             cp -f .bashrc "/home/$username/.bashrc"
@@ -144,21 +146,24 @@ if [ "$response" == 'y' ]; then
 fi
 
 # GRUB
-echo -n 'Set GRUB timeout to 1 and save last boot choice [Y/n] '
+echo -n 'Set GRUB timeout down to 0 [Y/n] '
 response=$(get_word Y)
 if [ "$response" == 'y' ]; then
-    sed 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/' /etc/default/grub | sed 's/GRUB_DEFAULT=0/GRUB_DEFAULT=saved\nGRUB_SAVEDEFAULT=true/' > /etc/default/grub2
-    mv -f /etc/default/grub2 /etc/default/grub
+    sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub #/etc/default/grub2
+    #sed 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub | sed 's/GRUB_DEFAULT=0/GRUB_DEFAULT=saved\nGRUB_SAVEDEFAULT=true/' > /etc/default/grub2
+    #mv -f /etc/default/grub2 /etc/default/grub
     update-grub
 fi
 
 echo
 echo
-echo 'Will now install all the packages.. this may take a while (20 minutes).'
+echo 'Will now install all the packages.. this may take a while (~ 20 minutes).'
 echo 'DO NOT INTERRUPT THE INSTALLATION PROCESS.'
 echo
-echo '--- PRESS ENTER WHEN READY ---'
+echo '--------- PRESS ENTER WHEN READY ---------'
 read
+
+START_TIME2=$(date +%s)
 
 # Replace /etc/apt/sources.list & update
 cp -f etc/apt/sources.list /etc/apt/sources.list
@@ -199,29 +204,31 @@ aptitude -y install rar unrar unzip
 # Bash completion
 aptitude -y install bash-completion
 
-# Install graphical part
+# Graphical stuff
 aptitude -y install xserver-xorg xinit
 aptitude -y install openbox python-xdg conky-std
 aptitude -y install feh graphicsmagick-imagemagick-compat
 aptitude -y install obmenu obconf thunar
 aptitude -y install numlockx volumeicon-alsa xcalib xscreensaver tint2 wbar
 
-# Install the terminal
+# Terminal
 aptitude -y install rxvt-unicode
 
-# Install musical part
+# Music: Sonata&mpc are the client, MPD is the daemon
 aptitude -y install alsa-utils
 aptitude -y install sonata mpd mpc
 sed 's#^music_directory.*$#music_directory "'$mpd_zik_dir'"#' etc/mpd.conf > /etc/mpd.conf
 echo 'Do not worry about MPD complaining: music_directory is now set.'
 
 # Autologin
-tempfile=$(tempfile)
-sed 's#agetty %I 38400#agetty --noclear -a '$username' %I $TERM#' /etc/systemd/system/getty.target.wants/getty@tty1.service > $tempfile
-mv -f $tempfile /etc/systemd/system/getty.target.wants/getty@tty1.service
+cp -r system/getty@tty1.service.d/ /etc/systemd/system/
+
+# Networking
+cp etc/network/interfaces /etc/network/
+cp -r system/getty@tty1.service.d/ /etc/systemd/system/
 
 # Propose a package to install whenever a command is not found
-aptitude -y install command-not-found && echo 'Do not worry about that dude, I and I handle this.' && update-command-not-found && apt-file update
+aptitude -y install command-not-found && echo 'Do not worry about that, I handle this.' && update-command-not-found && apt-file update
 
 # Install Web browsers
 # This is firefox
@@ -298,21 +305,29 @@ fi
 
 cp -f etc/resolv.conf /etc/resolv.conf
 
+DIFF_TIME2=$(expr $(date +%s) - $START_TIME2)
+DIFF_min2=$(expr $DIFF_TIME2 \/ 60)
+DIFF_sec2=$(expr $DIFF_TIME2 % 60)
 DIFF_TIME=$(expr $(date +%s) - $START_TIME)
 DIFF_min=$(expr $DIFF_TIME \/ 60)
 DIFF_sec=$(expr $DIFF_TIME % 60)
 echo -n 'Installation successfully completed in '
 if [ $DIFF_min -gt 0 ]; then
-    printf "%dm%02ds.\n" $DIFF_min $DIFF_sec
+    printf "%dm%02ds" $DIFF_min $DIFF_sec
 else
-    printf "%02ds.\n" $DIFF_sec
+    printf "%02ds" $DIFF_sec
+fi
+if [ $DIFF_min2 -gt 0 ]; then
+    printf " (core time: %dm%02ds).\n" $DIFF_min2 $DIFF_sec2
+else
+    printf " (core time: %02ds).\n" $DIFF_sec2
 fi
 echo
 echo
 echo 'Will now reboot to let you enjoy Openbox on Debian.'
-echo 'Please run `mpc update` after the reboot for your music to be loaded.'
-echo 'Peace. Signing off.'
+echo 'Please run `mpc update` afterwards, for your music to be loaded into the MPD database.'
+echo 'Signing off.'
 echo
-echo '--- PRESS ENTER TO REBOOT ---'
+echo '  --------- PRESS ENTER TO REBOOT ---------'
 read
 reboot
