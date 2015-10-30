@@ -59,7 +59,7 @@ else
 fi
 export MYSQL_PS1='(\u@\h) [\d]> '
 export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-export PATH='/home/da/e/Tiger/bin:/opt/e17/bin:/usr/local/lib:/usr/lib/:/usr/lib/vino/:/usr/local/cuda/bin/:/opt/kde/bin/:/usr/X11/bin/:/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/games/bin:/usr/games:/usr/NX/bin:~/coding/jad'
+export PATH='/usr/local/lib:/usr/lib/:/usr/local/cuda/bin/:/usr/X11/bin/:/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/games/bin:/usr/games'
 export GOROOT='/usr/lib/go'
 export GOPATH="$HOME/go/gocode:$GOROOT"
 export GOBIN="$GOROOT/bin"
@@ -80,7 +80,6 @@ alias umount='sudo umount'
 alias aptitude='sudo aptitude'
 alias xmms='audacious2'
 alias mv='mv -i'
-export NNTPSERVER='news.epita.fr'
 # mplayer -af volnorm Gran\ Torino.ac3 si c'est pas assez fort
 # mplayer -playlist *.asx -dumpstream -dumpfile fugly.proprietary.stuff pour d/l un mms://
 alias mplayer='mplayer -vo vdpau -ao alsa -nolirc -nojoystick'
@@ -89,8 +88,6 @@ alias sound_max='amixer -c 0 sset "Master,0" 100%;amixer -c 0 sset "PCM,0" 100%;
 alias record="arecord -f cd --use-strftime '%d-%m-%Y_%H:%M.wav'"
 alias uncrypt='umount /mnt/groar;sudo cryptdisks_stop groar'
 alias crypt='sudo modprobe dm_mod;sudo cryptdisks_start groar;mount /mnt/groar;sudo bash --rcfile /mnt/groar/.aliases -i;uncrypt'
-alias dev_appserver.py='~/go/google_appengine/dev_appserver.py'
-alias appcfg.py='~/go/google_appengine/appcfg.py --oauth2 --email=jboscq@gmail.com'
 base64()
 {
   local filename=$(mktemp)
@@ -102,29 +99,6 @@ base64()
 #rm -f $filename
 }
 set nobeep
-
-
-mv_p()
-{
-   strace -q -ewrite mv -- "${1}" "${2}" 2>&1 | awk '{
-        count += $NF
-            if (count % 10 == 0) {
-               percent = count / total_size * 100
-               printf "%3d%% [", percent
-               for (i=0;i<=percent;i++)
-                  printf "="
-               printf ">"
-               for (i=percent;i<100;i++)
-                  printf " "
-               printf "]\r"
-            }
-         }
-         END { print "" }' total_size=$(stat -c '%s' "${1}") count=0
-}
-
-#alias cp='pcp'
-#alias cp='cp_p'
-#alias mv='mv_p'
 
 
 # Misc aliases
@@ -140,24 +114,13 @@ alias pwgen='pwgen -s -y -1 10 5'
 # curl -F file=@da nopaste.com/a
 alias radio='vlc http://millepattes.ice.infomaniak.ch:80/millepattes-high.mp3 http://hd.lagrosseradio.info:8300'
 alias radio2='echo http://size-radio.com; mplayer http://size.ice.infomaniak.ch/size-128.mp3'
-#alias nzb='lottanzb'
 #alias javac='javac -encoding iso-8859-15'
-#alias dodo='~/coding/divers/dodo.sh'
-
-alias megaupload="grep 'megaupload.com' *.html |sed 's/ href=/\n/gi'|grep 'megaupload.com'|cut -d '\"' -f2|uniq|grep mega"
-alias megaupload_download='plowdown $(megaupload)'
 
 alias graver_audio='du -csh *.wav|tail -1;sudo cdrecord speed=2 -eject -dao -pad -audio *.wav' # for i in *.[Mm][Pp]3;do mpg123 --rate 44100 --stereo --buffer 3072 --resync -w "`basename "$i" .mp3`.wav" "$i"; done # normalize -m *.wav
 alias ettercap='sudo ettercap -n 255.255.255.0 -G'
 alias vncviewer='vncviewer -passwd ~/.vnc/passwd'
 alias changelog="file=\"$(mktemp)\"; git --no-pager log -1 --format='%ai %aN%n%n%x09* %s%n' > $file; cat ChangeLog >> $file; diff ChangeLog $file; head -5 ChangeLog; mv -i $file ChangeLog"
 alias commit='changelog;git commit -a'
-# sudo pon VPNEPITA;route add -net 10.0.0.0/8 gw 10.100.1.254'
-
-alias kenito='i=0;while true;do ((i++)); clear;echo "Tour $i";echo  "Jacquot ";expr $RANDOM % 6 + 1;expr $RANDOM % 6 + 1;read a;clear;echo "Tour $i";echo "Raph ";expr $RANDOM % 6 + 1;expr $RANDOM % 6 + 1; read a;clear;echo "Tour $i";echo  "Djé ";expr $RANDOM % 6 + 1;expr $RANDOM % 6 + 1; read a;done'
-alias reveille='sudo etherwake 00:24:21:bb:4b:6f'
-alias ps3='lftp ps3/dev_hdd0/GAMES'
-alias onestpascouche='pluzzdl -bt http://pluzz.francetv.fr/videos/on_nest_pas_couche.html'
 
 # TV
 alias tv3='mplayer "rtsp://mafreebox.freebox.fr/fbxtv_pub/stream?namespace=1&service=202"'
@@ -189,36 +152,10 @@ if [ "$TERM" == "rxvt-unicode" ]; then
 #fortune -s
 fi
 #mencoder -ovc copy -oac copy -ss 0 -endpos 01:46:20 -o _Bienvenue.Chez.Les.Chtis.avi Bienvenue.Chez.Les.Chtis.avi
-#mencoder -ovc x264 -oac faac -o da.avi 
-
-function epita_count()
-{
-    for file in *.c; do
-        echo "File $file"
-        lines=$(wc -l $file | cut -d ' ' -f1)
-        grep -n "^[{|}]$" $file | while read n1; do
-        read n2
-            n1=$(echo $n1 | cut -d ':' -f1)
-            n2=$(echo $n2 | cut -d ':' -f1)
-            n2=$(expr $n2 - 1)
-            name=$(head -n $n1 $file | tail -n 4 | egrep "^\w+\s+\w*\s*\*?\w+\(" | sed 's/^\w*\s*//' | cut -d '(' -f1)
-            n=$(head -n $n2 $file | tail -n $(expr $n2 - $n1) | grep -v "^\s*\/\*\*" | grep -v "^\s*\*\* .*$" | grep -v "^\s*\*\/$" | egrep -v "^\s*[{|}]$" | grep -v ^$ | grep -v "^\s*//" | wc -l)
-            if [ $n -lt 25 ]; then
-                echo -en "${GREEN}OK$stopColor\t"
-            else
-                echo -en "${RED}KO$stopColor\t"
-            fi
-            echo -e "$n\t$name"
-        done
-    done
-}
+#mencoder -ovc x264 -oac faac -o da.avi
 
 # Get the included files
 # grep -h include *.c|sed 's/#include <\([^>]*\)>$/\1/' | sort -u
 # Get the functions
 alias ls_function='egrep "^\w+\s+\w*\s*\*?\w+\(" *.c | while read file; do echo "$file;"; done'
 alias ls_makefile="l *c|tr -s ' '|sed 's/^/\$\(SRC_DIR\)\//g'|tr '\n' ' ';echo"
-
-export EPITA_FLAGS='-Wall -Wextra -Werror -std=c99 -pedantic -Wfloat-equal -Wundef -Wshadow -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Wunreachable-code'
-
-#cat ~/.TODO
