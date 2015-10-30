@@ -67,16 +67,15 @@ if [ "$response" == 'n' ]; then
 fi
 echo 'install NVIDIA drivers.'
 
-# You should know what you are doing!
 use_optional=1
-echo -n 'Should we install optional stuff? [Y/n] '
-response=$(get_word Y)
-echo -n 'OK, will '
+echo -n 'Should we install optional stuff? [y/N] '
+response=$(get_word N)
+echo -n 'Will '
 if [ "$response" == 'n' ]; then
     echo -n 'not '
     use_optional=0
 fi
-echo 'install optional stuff.'
+echo 'install optional stuff (crypttab, Nexus MTP protocol, realtek firmware).'
 
 echo -n 'Edit the partitions from /etc/fstab? [y/N] '
 response=$(get_word N)
@@ -173,9 +172,8 @@ cp -f etc/apt/sources.list /etc/apt/sources.list
 cp -f etc/apt/apt.conf.d/80default-distrib /etc/apt/apt.conf.d/80default-distrib
 aptitude update
 
+# Optional stuff in here
 if [ $use_optional -eq 1 ]; then
-    # Optional stuff from here
-
     # Crypted USB key (alias crypt)
     aptitude -y install cryptsetup
     cp -f etc/crypttab /etc/crypttab
