@@ -1,14 +1,13 @@
-debian-config: My config files to run a fresh debian (netinstall)
+debian-config: My custom Debian
 ==============
 
 About
 -----
 
-The required space is about 6 GB, but reserve at least 10 GB.
-All the installation process is estimated to less than half an hour.
+Use a SSD disk storage > 20 GB. Installation estimated to < 30 min.
 Take a look at the result in this [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
-You will get a fresh Debian 64-bit from the testing (+ stable) branch(es), with:
+You will get a fresh Debian Jessie 64-bit system (testing branch), with:
 * a lightweight OpenBOX environment that automatically renews its wallpaper,
 * MPD (music daemon) + Sonata/mpc (GUI/cmd line music client),
 * sudoers configured to no more require the password when using sudo,
@@ -18,26 +17,16 @@ You will get a fresh Debian 64-bit from the testing (+ stable) branch(es), with:
 Installation
 ------------
 
-Fetch then write the current Debian 64-bit network installation ISO to an USB key:
+1. Fetch then write my Debian 64-bit network installation ISO to an USB key:
 ```
-wget http://ftp.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/mini.iso
+wget -- TODO
 dd if=mini.iso of=/dev/sdX # Where X represents your key device, beware any mistake!
 ```
+You can also use Unetbootin instead of dd, especially if you are on Windows.
 
-Boot on the USB key and launch the installation (this may take ~ 6 minutes).
-Login as root then fetch and install my config files (this may take ~ 20m):
-```
-bash -c "$(wget hydr.es/go.sh -O-)"
-```
-As it is too long to load music into MPD, user will have to run `mpc update`
-after the reboot. Put your music in `/home/musique` (hint: use symbolic links).
-You may also want to install [MPD_Notification](https://github.com/Amodio/mpd_notification):
-```
-cd mpd_notification
-make install distclean
-```
+2. Boot on this USB key and launch the installation, this may take ~ 20 minutes.
 
-Hope you'll like it, if you miss any firmware/package you should tell me about it ;)
+Hope you'll like it, please feedback!
 
 
 Exhaustive list of installed packages
@@ -59,11 +48,9 @@ Exhaustive list of installed packages
 * Sound
     * alsa-utils
     * sonata mpd mpc
-* NVIDIA Drivers # IF install_nvidia=1
-    * nvidia-glx nvidia-xconfig
-* MTP tools # IF use_optional=1, for the Galaxy Nexus on USB
+* MTP tools # For the Galaxy Nexus on USB
     * mtp-tools
-* Realtek (Ethernet card) firmware # IF use_optional=1
+* Realtek (Ethernet card) firmware
     * firmware-realtek
 * Network
     * bind9-host # For host
@@ -76,7 +63,7 @@ Exhaustive list of installed packages
 
 ### Applications
 * Text editor
-    * vim-nox + vim-syntax-go
+    * vim-nox #+ vim-syntax-go
     * gedit
     * less
     * libreoffice libreoffice-pdfimport
