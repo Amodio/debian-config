@@ -11,6 +11,8 @@ dnsutils
 whois
 rar
 unrar
+libnotify-dev
+libmpdclient-dev
 unzip
 bash-completion
 xserver-xorg
