@@ -46,7 +46,7 @@ Exhaustive list of installed packages
 ### System
 * sudo
 * mingetty # For autologin
-* screen   # To attach/detach from shareable screens
+* screen   # To attach to/detach from shareable screens
 * bash-completion
 * command-not-found # Tell which pkg to install
 * smartmontools     # smartctl (for HDD health check)
