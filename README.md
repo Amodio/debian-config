@@ -8,6 +8,7 @@ Use a SSD disk storage > 20 GB. Installation estimated to < 30 min.
 Take a look at the result in this [screenshot file](https://raw.github.com/Amodio/debian-config/master/screenshot.png).
 
 You will get a fresh Debian Jessie 64-bit system (testing branch), with:
+* automatically login onto your X session,
 * a lightweight OpenBOX environment that automatically renews its wallpaper,
 * MPD (music daemon) + Sonata/mpc (GUI/cmd line music client),
 * sudoers configured to no more require the password when using sudo,

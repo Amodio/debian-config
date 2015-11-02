@@ -1,5 +1,5 @@
 vim-nox
-vim-syntax-go
+#vim-syntax-go
 cryptsetup
 mtp-tools
 firmware-realtek
@@ -10,7 +10,7 @@ bind9-host
 dnsutils
 whois
 rar
-unrar
+#unrar
 libnotify-dev
 libmpdclient-dev
 unzip
@@ -66,5 +66,5 @@ nmap
 tcpdump
 wireshark
 smartmontools
-libreoffice
-libreoffice-pdfimport
+#libreoffice
+#libreoffice-pdfimport
